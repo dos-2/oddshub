@@ -20,5 +20,5 @@
 # Go workspace file
 go.work
 
-# API key
+# secrets
 .env
