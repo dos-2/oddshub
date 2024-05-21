@@ -1,12 +1,15 @@
 package API
+
 import(
   "encoding/json"
   "net/http"
   "fmt"
-  "io/ioutil"
+  "io"
   "time"
   "os"
   "github.com/joho/godotenv"
+  "log"
+  "oddshub/sport"
 )
 
 type Event struct {
@@ -41,7 +44,67 @@ type Outcome struct {
   Point   float64 `json:"point,omitempty"`
 }
 
-func GetAllUpcomingEvents() []Event {
+func getAmericanFootball_ncaa() []Event {
+  return nil
+}
+
+
+func getAmericanFootball_nfl() []Event {
+
+  return nil
+}
+
+func getBaseball_ncaa() []Event {
+
+  return nil
+}
+
+func getBaseball_mlb() []Event {
+
+  return nil
+}
+
+func getBasketball_ncaa() []Event {
+
+  return nil
+}
+
+func getBasketball_nba() []Event {
+
+  return nil
+}
+
+func getGolf_masters() []Event {
+
+  return nil
+}
+
+func geticehocky_nhl() []Event {
+
+  return nil
+}
+
+func getMma() []Event {
+
+  return nil
+}
+
+func getSoccer_uefa() []Event {
+
+  return nil
+}
+
+func getSoccer_mls() []Event {
+
+  return nil
+}
+
+func getTennis_french_open() []Event {
+
+  return nil
+}
+
+func getAPIKEY() string {
   err := godotenv.Load()
   if err != nil {
     fmt.Println("Error loading .env file")
@@ -50,70 +113,58 @@ func GetAllUpcomingEvents() []Event {
   apiKey := os.Getenv("API_KEY")
 
   if apiKey == "" {
-    fmt.Println("API key not found in environment variables")
-    return nil 
+    log.Fatal("API key is missing")
   }
 
-  req, err := http.Get(fmt.Sprintf("https://api.the-odds-api.com/v4/sports/upcoming/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american", apiKey))      
+  return apiKey
 
-  if err != nil {
-    fmt.Print(err.Error())
-  }
-  defer req.Body.Close()
-  response, err := ioutil.ReadAll(req.Body)
-
-  if err != nil {
-    fmt.Print(err.Error())
-  }
-
-  var events []Event
-  msg := json.Unmarshal(response, &events)
-
-  if msg  != nil {
-    fmt.Println(err)
-  }
-
-  //var filteredEvents []Event
-  //set := map[string]bool{
-  //  "americanfootball_ncaaf":              true,
-  //  "americanfootball_nfl":                true,
-  //  "basketball_nba":                      true,
-  //  "golf_masters_tournament_winner":      true,
-  //  "icehockey_nhl":                       true,
-  //  "icehockey_nhl_championship_winner":   true,
-  //  "mma_mixed_martial_arts":              true,
-  //  "soccer_usa_mls":                      true,
-  //  "tennis_atp_french_open":              true,
-  //  "baseball_mlb":                        true,
-  //  "baseball_ncaa":                       true,
-  //  "basketball_ncaa":                     true,
-  //  "golf_us_open_winner":                 true,
-  //  "basketball_nba_championship_winner":  true,
-  //  "basketball_nba_championship_winner":  true,
-  //}
-  //
-  ///*for _,event := range events {
-  //  fmt.Print(event.SportKey)
-  //  if set[event.SportKey] {
-  //      filteredEvents = append(filteredEvents, event)
-  //  }
-  //}
-  //events = filteredEvents
-
-  for i, event := range events {
-
-    // Initialize a slice to store filtered bookmakers
-    var filteredBookmakers []Bookmaker
-
-    // Iterate over each bookmaker
-    for _, bookmaker := range event.Bookmakers {
-      if bookmaker.Title == "FanDuel" {
-        // If it is, append it to the filteredBookmakers slice
-        filteredBookmakers = append(filteredBookmakers, bookmaker)
-      }
-    }
-    events[i].Bookmakers = filteredBookmakers
-  }
-
-  return events
 }
+
+func GetAllUpcomingEvents() []Event {
+  var apiKey string = getAPIKEY()
+  var allEvents []Event
+
+  for _, sport := range sport.AllSports() {
+
+    req, err := http.Get(fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american", sport, apiKey))      
+
+    if err != nil {
+      fmt.Print(err.Error())
+    }
+
+    defer req.Body.Close()
+    response, err := io.ReadAll(req.Body)
+
+    if err != nil {
+      fmt.Print(err.Error())
+    }
+
+    var events []Event
+    msg := json.Unmarshal(response, &events)
+
+    if msg  != nil {
+      fmt.Println(err)
+    }
+
+    for i, event := range events {
+      // Initialize a slice to store filtered bookmakers
+      var filteredBookmakers []Bookmaker
+      // Iterate over each bookmaker
+      for _, bookmaker := range event.Bookmakers {
+        if bookmaker.Title == "FanDuel" {
+          // If it is, append it to the filteredBookmakers slice
+          filteredBookmakers = append(filteredBookmakers, bookmaker)
+        }
+      }
+
+      if len(filteredBookmakers) == 0 && len(event.Bookmakers) != 0 {
+        filteredBookmakers = append(filteredBookmakers, event.Bookmakers[0])
+      }
+      events[i].Bookmakers = filteredBookmakers
+    }
+    allEvents = append(allEvents, events...)
+  }
+
+  return allEvents
+}
+
