@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"oddshub/API"
 	"oddshub/ui"
+  "oddshub/models"
 )
 
 func main() {
-  ui.Table() 
   //printInfoMap(API.GetAllUpcomingEventsMap())
   //API.GetAllUpcomingEvents()
   //printInfo(API.GetAllUpcomingEvents())
+  ui.UI(API.GetAllUpcomingEventsMap()) 
 }
 
-func printInfo(events []API.Event) {
+func printInfo(events []models.Event) {
 
   for _, event := range events {
 
@@ -43,7 +44,7 @@ func printInfo(events []API.Event) {
 }
 
 
-func printInfoMap(eventsMap map[string][]API.Event) {
+func printInfoMap(eventsMap map[string][]models.Event) {
 
   for sportName, events := range eventsMap {
     fmt.Println(sportName)

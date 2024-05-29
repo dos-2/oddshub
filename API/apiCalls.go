@@ -5,104 +5,44 @@ import(
   "net/http"
   "fmt"
   "io"
-  "time"
   "os"
   "github.com/joho/godotenv"
   "log"
   "oddshub/sport"
+  "oddshub/models"
 )
 
-type Event struct {
-  ID             string     `json:"id"`
-  SportKey       string     `json:"sport_key"`
-  SportTitle     string     `json:"sport_title"`
-  CommenceTime   time.Time  `json:"commence_time"`
-  HomeTeam       string     `json:"home_team"`
-  AwayTeam       string     `json:"away_team"`
-  Bookmakers     []Bookmaker `json:"bookmakers"`
-}
-
-// Define a struct for the bookmaker
-type Bookmaker struct {
-  Key         string    `json:"key"`
-  Title       string    `json:"title"`
-  LastUpdate  time.Time `json:"last_update"`
-  Markets     []Market  `json:"markets"`
-}
-
-// Define a struct for the market
-type Market struct {
-  Key         string    `json:"key"`
-  LastUpdate  time.Time `json:"last_update"`
-  Outcomes    []Outcome `json:"outcomes"`
-}
-
-// Define a struct for the outcome
-type Outcome struct {
-  Name    string  `json:"name"`
-  Price   float64 `json:"price"`
-  Point   float64 `json:"point,omitempty"`
-}
-
-func getAmericanFootball_ncaa() []Event {
-  return nil
-}
-
-
-func getAmericanFootball_nfl() []Event {
-
-  return nil
-}
-
-func getBaseball_ncaa() []Event {
-
-  return nil
-}
-
-func getBaseball_mlb() []Event {
-
-  return nil
-}
-
-func getBasketball_ncaa() []Event {
-
-  return nil
-}
-
-func getBasketball_nba() []Event {
-
-  return nil
-}
-
-func getGolf_masters() []Event {
-
-  return nil
-}
-
-func geticehocky_nhl() []Event {
-
-  return nil
-}
-
-func getMma() []Event {
-
-  return nil
-}
-
-func getSoccer_uefa() []Event {
-
-  return nil
-}
-
-func getSoccer_mls() []Event {
-
-  return nil
-}
-
-func getTennis_french_open() []Event {
-
-  return nil
-}
+//type Event struct {
+//  ID             string     `json:"id"`
+//  SportKey       string     `json:"sport_key"`
+//  SportTitle     string     `json:"sport_title"`
+//  CommenceTime   time.Time  `json:"commence_time"`
+//  HomeTeam       string     `json:"home_team"`
+//  AwayTeam       string     `json:"away_team"`
+//  Bookmakers     []Bookmaker `json:"bookmakers"`
+//}
+//
+//// Define a struct for the bookmaker
+//type Bookmaker struct {
+//  Key         string    `json:"key"`
+//  Title       string    `json:"title"`
+//  LastUpdate  time.Time `json:"last_update"`
+//  Markets     []Market  `json:"markets"`
+//}
+//
+//// Define a struct for the market
+//type Market struct {
+//  Key         string    `json:"key"`
+//  LastUpdate  time.Time `json:"last_update"`
+//  Outcomes    []Outcome `json:"outcomes"`
+//}
+//
+//// Define a struct for the outcome
+//type Outcome struct {
+//  Name    string  `json:"name"`
+//  Price   float64 `json:"price"`
+//  Point   float64 `json:"point,omitempty"`
+//}
 
 func getAPIKEY() string {
   err := godotenv.Load()
@@ -120,9 +60,9 @@ func getAPIKEY() string {
 
 }
 
-func GetAllUpcomingEvents() []Event {
+func GetAllUpcomingEvents() []models.Event {
   var apiKey string = getAPIKEY()
-  var allEvents []Event
+  var allEvents []models.Event
 
   for _, sport := range sport.AllSports() {
 
@@ -139,7 +79,7 @@ func GetAllUpcomingEvents() []Event {
       fmt.Print(err.Error())
     }
 
-    var events []Event
+    var events []models.Event
     msg := json.Unmarshal(response, &events)
 
     if msg  != nil {
@@ -148,7 +88,7 @@ func GetAllUpcomingEvents() []Event {
 
     for i, event := range events {
       // Initialize a slice to store filtered bookmakers
-      var filteredBookmakers []Bookmaker
+      var filteredBookmakers []models.Bookmaker
       // Iterate over each bookmaker
       for _, bookmaker := range event.Bookmakers {
         if bookmaker.Title == "FanDuel" {
@@ -168,10 +108,9 @@ func GetAllUpcomingEvents() []Event {
   return allEvents
 }
 
-
-func GetAllUpcomingEventsMap() map[string][]Event {
+func GetAllUpcomingEventsMap() map[string][]models.Event {
   var apiKey string = getAPIKEY()
-  var eventMap = make(map[string][]Event)
+  var eventMap = make(map[string][]models.Event)
 
   for _, sport := range sport.AllSports() {
 
@@ -188,17 +127,16 @@ func GetAllUpcomingEventsMap() map[string][]Event {
       fmt.Print(err.Error())
     }
 
-    var events []Event
+    var events []models.Event
     msg := json.Unmarshal(response, &events)
 
     if msg  != nil {
       fmt.Println(err)
     }
 
-
     for i, event := range events {
       // Initialize a slice to store filtered bookmakers
-      var filteredBookmakers []Bookmaker
+      var filteredBookmakers []models.Bookmaker
       // Iterate over each bookmaker
       for _, bookmaker := range event.Bookmakers {
         if bookmaker.Title == "FanDuel" {
