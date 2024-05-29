@@ -1,11 +1,14 @@
 package main
-import(
-  "oddshub/API"
-  "fmt"
+
+import (
+	"fmt"
+	"oddshub/API"
+	"oddshub/ui"
 )
 
 func main() {
-  printInfoMap(API.GetAllUpcomingEventsMap())
+  ui.Table() 
+  //printInfoMap(API.GetAllUpcomingEventsMap())
   //API.GetAllUpcomingEvents()
   //printInfo(API.GetAllUpcomingEvents())
 }
