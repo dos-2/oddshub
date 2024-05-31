@@ -1,3 +1,10 @@
+/*
+A presentation of the UI package, implemented with tview.
+
+# Navigation
+  - Ctrl-N: Jump to next slide
+  - Ctrl-P: Jump to previous slide
+*/
 package ui
 
 import (
@@ -13,26 +20,27 @@ type Slide func(nextSlide func()) (title string, content tview.Primitive)
 
 var app = tview.NewApplication()
 
-func UI() error {
+func RunApp() error {
   presentationSlides := slides.GetSlides()
-  // The presentation presentationSlides.
-  //	presentationSlides := []Slide{
-  //	slides.Cover,
-  //slides.NFL_football,
-  //	  tables.NCAA_football,
-  //    tables.NBA_basketball,
-  //    tables.NCAA_basketball,
-  //    tables.MLB_baseball,
-  //    tables.NCAA_baseball,
-  //    tables.MMA,
-  //    tables.NHL_hockey,
-  //    tables.Masters_golf,
-  //    tables.French_open_tennis,
-  //}
 
   pages := tview.NewPages()
+  // Info text view
+  info := createInfoTextView(pages)
+  // Create navigation functions
+  previousSlide, nextSlide := createNavigationFunctions(info, presentationSlides)
+  // Create pages for all slides
+  setupSlides(pages, info, presentationSlides, nextSlide)
+  // Create the main layout.
+  layout := tview.NewFlex().
+    SetDirection(tview.FlexRow).
+    AddItem(pages, 0, 1, true).
+    AddItem(info, 1, 1, false)
+  setupNavigationShortcuts(app, previousSlide, nextSlide)
+  // Start the application.
+  return app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run()
+}
 
-  // The bottom row has some info on where we are.
+func createInfoTextView(pages *tview.Pages) *tview.TextView {
   info := tview.NewTextView().
     SetDynamicColors(true).
     SetRegions(true).
@@ -42,35 +50,35 @@ func UI() error {
         return
       }
       pages.SwitchToPage(added[0])
-  })
+    })
+  return info
+}
 
-  // Create the pages for all slides.
+
+func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (func(), func()) {
   previousSlide := func() {
     slide, _ := strconv.Atoi(info.GetHighlights()[0])
-    slide = (slide - 1 + len(presentationSlides)) % len(presentationSlides)
-    info.Highlight(strconv.Itoa(slide)).
-      ScrollToHighlight()
+    slide = (slide - 1 + len(slides)) % len(slides)
+    info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
   }
   nextSlide := func() {
     slide, _ := strconv.Atoi(info.GetHighlights()[0])
-    slide = (slide + 1) % len(presentationSlides)
-    info.Highlight(strconv.Itoa(slide)).
-      ScrollToHighlight()
+    slide = (slide + 1) % len(slides)
+    info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
   }
-  for index, slide := range presentationSlides {
+  return previousSlide, nextSlide
+}
+
+func setupSlides(pages *tview.Pages, info *tview.TextView, slides []slides.Slide, nextSlide func()) {
+  for index, slide := range slides {
     title, primitive := slide(nextSlide)
     pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
     fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
   }
   info.Highlight("0")
+}
 
-  // Create the main layout.
-  layout := tview.NewFlex().
-    SetDirection(tview.FlexRow).
-    AddItem(pages, 0, 1, true).
-    AddItem(info, 1, 1, false)
-
-  // Shortcuts to navigate the slides.
+func setupNavigationShortcuts(app *tview.Application, previousSlide func(), nextSlide func()) {
   app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
     if event.Key() == tcell.KeyCtrlN {
       nextSlide()
@@ -81,7 +89,4 @@ func UI() error {
     }
     return event
     })
-
-  // Start the application.
-  return app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run()
 }
