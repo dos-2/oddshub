@@ -1,4 +1,4 @@
-package tables
+package slides
 
 import (
 	"oddshub/ui"
