@@ -20,7 +20,3 @@ const(
 func  AllSports () []Sport {
   return []Sport{ Americanfootball_nfl, Americanfootball_ncaaf, Basketball_nba, Basketball_ncaa, Baseball_mlb, Baseball_ncaa, Golf_masters_tournament_winner, Icehockey_nhl, Mma_mixed_martial_arts, Soccer_usa_mls, Tennis_atp_french_open }
 }
-
-//func (s Sport) ToString() string {
-//    return string(s)
-//}

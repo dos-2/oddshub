@@ -1,113 +1,87 @@
-package ui 
+package ui
 
 import (
-  "strings"
   "fmt"
+  "strconv"
+  "oddshub/slides"
+
   "github.com/gdamore/tcell/v2"
   "github.com/rivo/tview"
-  "oddshub/models"
 )
 
-//const tableData = `Commencement Date|Location|Teams|Bookmaker|Money Line|Spread|Total
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108 
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108 
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108 
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108 
-//  `
+type Slide func(nextSlide func()) (title string, content tview.Primitive)
 
-func UI(eventsMap map[string][]models.Event) {
-  var footballPage = Formatter(eventsMap) 
-  table := CreateTable("AmericanFootball_ncaaf", footballPage["Americanfootball_ncaaf"]) 
-  app := tview.NewApplication().
-    SetRoot(table, true).
-    SetFocus(table)
+var app = tview.NewApplication()
 
-  // Enable mouse support (optional, if you want to support mouse interactions)
-  table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-    switch event.Key() {
-    case tcell.KeyEnter:
-    // Handle Enter key if needed
-  }
-    return event
-  })
+func UI() error {
+  presentationSlides := slides.GetSlides()
+  // The presentation presentationSlides.
+  //	presentationSlides := []Slide{
+  //	slides.Cover,
+  //slides.NFL_football,
+  //	  tables.NCAA_football,
+  //    tables.NBA_basketball,
+  //    tables.NCAA_basketball,
+  //    tables.MLB_baseball,
+  //    tables.NCAA_baseball,
+  //    tables.MMA,
+  //    tables.NHL_hockey,
+  //    tables.Masters_golf,
+  //    tables.French_open_tennis,
+  //}
 
-  // Clear the screen and run the application
-  fmt.Print("\033[H\033[2J")
-  if err := app.Run(); err != nil {
-    panic(err)
-  }
+  pages := tview.NewPages()
 
-}
-
-func Center(width, height int, p tview.Primitive) tview.Primitive {
-  return tview.NewFlex().
-    AddItem(nil, 0, 1, false).
-    AddItem(tview.NewFlex().
-      SetDirection(tview.FlexRow).
-      AddItem(nil, 0, 1, false).
-      AddItem(p, height, 1, true).
-      AddItem(nil, 0, 1, false), width, 1, true).
-    AddItem(nil, 0, 1, false)
-}
-
-func Table() {
-  table := tview.NewTable().
-    SetFixed(1, 1).
-    SetBorders(false).
-    SetSelectable(true,true)
-
-  // Set up the table cells
-  for row, line := range strings.Split(tableData, "\n") {
-    for column, cell := range strings.Split(line, "|") {
-      color := tcell.ColorWhite
-      if row == 0 {
-        color = tcell.ColorYellow
-      } else if column == 0 {
-        color = tcell.ColorDarkCyan
+  // The bottom row has some info on where we are.
+  info := tview.NewTextView().
+    SetDynamicColors(true).
+    SetRegions(true).
+    SetWrap(false).
+    SetHighlightedFunc(func(added, removed, remaining []string) {
+      if len(added) == 0 {
+        return
       }
-      align := tview.AlignCenter
-      if row == 0 {
-        align = tview.AlignCenter
-      } 
-      tableCell := tview.NewTableCell(cell).
-        SetTextColor(color).
-        SetAlign(align).
-        SetSelectable(true).
-        SetExpansion(1)
-      table.SetCell(row, column, tableCell)
-    }
-  }
-  table.SetBorder(true).SetTitle("Table")
-
-
-
-  // Set up the application
-  app := tview.NewApplication().
-    SetRoot(table, true).
-    SetFocus(table)
-
-  // Enable mouse support (optional, if you want to support mouse interactions)
-  table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-    switch event.Key() {
-    case tcell.KeyEnter:
-    // Handle Enter key if needed
-  }
-    return event
+      pages.SwitchToPage(added[0])
   })
 
-  // Clear the screen and run the application
-  fmt.Print("\033[H\033[2J")
-  if err := app.Run(); err != nil {
-    panic(err)
+  // Create the pages for all slides.
+  previousSlide := func() {
+    slide, _ := strconv.Atoi(info.GetHighlights()[0])
+    slide = (slide - 1 + len(presentationSlides)) % len(presentationSlides)
+    info.Highlight(strconv.Itoa(slide)).
+      ScrollToHighlight()
   }
+  nextSlide := func() {
+    slide, _ := strconv.Atoi(info.GetHighlights()[0])
+    slide = (slide + 1) % len(presentationSlides)
+    info.Highlight(strconv.Itoa(slide)).
+      ScrollToHighlight()
+  }
+  for index, slide := range presentationSlides {
+    title, primitive := slide(nextSlide)
+    pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
+    fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
+  }
+  info.Highlight("0")
+
+  // Create the main layout.
+  layout := tview.NewFlex().
+    SetDirection(tview.FlexRow).
+    AddItem(pages, 0, 1, true).
+    AddItem(info, 1, 1, false)
+
+  // Shortcuts to navigate the slides.
+  app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+    if event.Key() == tcell.KeyCtrlN {
+      nextSlide()
+      return nil
+    } else if event.Key() == tcell.KeyCtrlP {
+      previousSlide()
+      return nil
+    }
+    return event
+    })
+
+  // Start the application.
+  return app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run()
 }

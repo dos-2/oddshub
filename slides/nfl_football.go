@@ -1,8 +1,6 @@
 package slides
 
 import (
-	"oddshub/ui"
-
 	"github.com/rivo/tview"
 )
 
@@ -12,5 +10,5 @@ func NFL_football(nextSlide func()) (string, tview.Primitive) {
 1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
 |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108 
 `
-	return "NFL Football", ui.CreateTable("NFL Football", tableData)
+	return "NFL Football", CreateTable("NFL Football", tableData)
 }
