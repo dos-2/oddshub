@@ -1,0 +1,38 @@
+package colors
+
+import "oddshub/models"
+
+var NHLTeamColorMap = map[string]models.TeamColors{
+    "Anaheim_Ducks":              {PrimaryColor: "#F95602", SecondaryColor: "#000000"},
+    "Arizona_Coyotes":            {PrimaryColor: "#8C2633", SecondaryColor: "#E2D6B5"},
+    "Boston_Bruins":              {PrimaryColor: "#000000", SecondaryColor: "#FFB81C"},
+    "Buffalo_Sabres":             {PrimaryColor: "#002654", SecondaryColor: "#FDBB30"},
+    "Calgary_Flames":             {PrimaryColor: "#C8102E", SecondaryColor: "#F1BE48"},
+    "Carolina_Hurricanes":        {PrimaryColor: "#CC0000", SecondaryColor: "#000000"},
+    "Chicago_Blackhawks":         {PrimaryColor: "#CF0A2C", SecondaryColor: "#000000"},
+    "Colorado_Avalanche":         {PrimaryColor: "#6F263D", SecondaryColor: "#236192"},
+    "Columbus_Blue_Jackets":      {PrimaryColor: "#002654", SecondaryColor: "#CE1126"},
+    "Dallas_Stars":               {PrimaryColor: "#006847", SecondaryColor: "#8F8F8C"},
+    "Detroit_Red_Wings":          {PrimaryColor: "#CE1126", SecondaryColor: "#FFFFFF"},
+    "Edmonton_Oilers":            {PrimaryColor: "#041E42", SecondaryColor: "#FF4C00"},
+    "Florida_Panthers":           {PrimaryColor: "#041E42", SecondaryColor: "#C8102E"},
+    "Los_Angeles_Kings":          {PrimaryColor: "#111111", SecondaryColor: "#A2AAAD"},
+    "Minnesota_Wild":             {PrimaryColor: "#154734", SecondaryColor: "#A6192E"},
+    "Montreal_Canadiens":         {PrimaryColor: "#AF1E2D", SecondaryColor: "#192168"},
+    "Nashville_Predators":        {PrimaryColor: "#041E42", SecondaryColor: "#FFB81C"},
+    "New_Jersey_Devils":          {PrimaryColor: "#CE1126", SecondaryColor: "#000000"},
+    "New_York_Islanders":         {PrimaryColor: "#00539B", SecondaryColor: "#F47D30"},
+    "New_York_Rangers":           {PrimaryColor: "#0038A8", SecondaryColor: "#CE1126"},
+    "Ottawa_Senators":            {PrimaryColor: "#C52032", SecondaryColor: "#000000"},
+    "Philadelphia_Flyers":        {PrimaryColor: "#F74902", SecondaryColor: "#000000"},
+    "Pittsburgh_Penguins":        {PrimaryColor: "#000000", SecondaryColor: "#FCB514"},
+    "San_Jose_Sharks":            {PrimaryColor: "#006D75", SecondaryColor: "#EA7200"},
+    "Seattle_Kraken":             {PrimaryColor: "#002D62", SecondaryColor: "#97D1D4"},
+    "St_Louis_Blues":             {PrimaryColor: "#002F87", SecondaryColor: "#FCB514"},
+    "Tampa_Bay_Lightning":        {PrimaryColor: "#002868", SecondaryColor: "#FFFFFF"},
+    "Toronto_Maple_Leafs":        {PrimaryColor: "#00205B", SecondaryColor: "#FFFFFF"},
+    "Vancouver_Canucks":          {PrimaryColor: "#00843D", SecondaryColor: "#041C2C"},
+    "Vegas_Golden_Knights":       {PrimaryColor: "#B4975A", SecondaryColor: "#333F42"},
+    "Washington_Capitals":        {PrimaryColor: "#041E42", SecondaryColor: "#C8102E"},
+    "Winnipeg_Jets":              {PrimaryColor: "#041E42", SecondaryColor: "#AC162C"},
+}

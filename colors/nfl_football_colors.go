@@ -1,0 +1,38 @@
+package colors
+
+import "oddshub/models"
+
+var NFLTeamColorMap = map[string]models.TeamColors{
+    "Arizona_Cardinals":         {PrimaryColor: "#97233F", SecondaryColor: "#000000"},
+    "Atlanta_Falcons":           {PrimaryColor: "#A71930", SecondaryColor: "#000000"},
+    "Baltimore_Ravens":          {PrimaryColor: "#241773", SecondaryColor: "#9E7C0C"},
+    "Buffalo_Bills":             {PrimaryColor: "#00338D", SecondaryColor: "#C60C30"},
+    "Carolina_Panthers":         {PrimaryColor: "#0085CA", SecondaryColor: "#101820"},
+    "Chicago_Bears":             {PrimaryColor: "#0B162A", SecondaryColor: "#C83803"},
+    "Cincinnati_Bengals":        {PrimaryColor: "#FB4F14", SecondaryColor: "#000000"},
+    "Cleveland_Browns":          {PrimaryColor: "#311D00", SecondaryColor: "#FF3C00"},
+    "Dallas_Cowboys":            {PrimaryColor: "#041E42", SecondaryColor: "#869397"},
+    "Denver_Broncos":            {PrimaryColor: "#002244", SecondaryColor: "#FB4F14"},
+    "Detroit_Lions":             {PrimaryColor: "#0076B6", SecondaryColor: "#B0B7BC"},
+    "Green_Bay_Packers":         {PrimaryColor: "#203731", SecondaryColor: "#FFB612"},
+    "Houston_Texans":            {PrimaryColor: "#03202F", SecondaryColor: "#A71930"},
+    "Indianapolis_Colts":        {PrimaryColor: "#002C5F", SecondaryColor: "#A5ACAF"},
+    "Jacksonville_Jaguars":      {PrimaryColor: "#006778", SecondaryColor: "#D7A22A"},
+    "Kansas_City_Chiefs":        {PrimaryColor: "#E31837", SecondaryColor: "#FFB81C"},
+    "Las_Vegas_Raiders":         {PrimaryColor: "#000000", SecondaryColor: "#A5ACAF"},
+    "Los_Angeles_Chargers":      {PrimaryColor: "#002A5E", SecondaryColor: "#FFC20E"},
+    "Los_Angeles_Rams":          {PrimaryColor: "#003594", SecondaryColor: "#FFA300"},
+    "Miami_Dolphins":            {PrimaryColor: "#008E97", SecondaryColor: "#F26A24"},
+    "Minnesota_Vikings":         {PrimaryColor: "#4F2683", SecondaryColor: "#FFC62F"},
+    "New_England_Patriots":      {PrimaryColor: "#002244", SecondaryColor: "#C8102E"},
+    "New_Orleans_Saints":        {PrimaryColor: "#D3BC8D", SecondaryColor: "#101820"},
+    "New_York_Giants":           {PrimaryColor: "#0B2265", SecondaryColor: "#A71930"},
+    "New_York_Jets":             {PrimaryColor: "#125740", SecondaryColor: "#000000"},
+    "Philadelphia_Eagles":       {PrimaryColor: "#004C54", SecondaryColor: "#A5ACAF"},
+    "Pittsburgh_Steelers":       {PrimaryColor: "#FFB612", SecondaryColor: "#101820"},
+    "San_Francisco_49ers":       {PrimaryColor: "#AA0000", SecondaryColor: "#B3995D"},
+    "Seattle_Seahawks":          {PrimaryColor: "#002244", SecondaryColor: "#69BE28"},
+    "Tampa_Bay_Buccaneers":      {PrimaryColor: "#D50A0A", SecondaryColor: "#FF7900"},
+    "Tennessee_Titans":          {PrimaryColor: "#0C2340", SecondaryColor: "#4B92DB"},
+    "Washington_Commanders":     {PrimaryColor: "#773141", SecondaryColor: "#FFB612"},
+}

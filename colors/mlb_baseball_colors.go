@@ -1,0 +1,36 @@
+package colors
+
+import "oddshub/models"
+
+var MLBTeamColorMap = map[string]models.TeamColors{
+    "Arizona_Diamondbacks":         {PrimaryColor: "#A71930", SecondaryColor: "#E3D4AD"},
+    "Atlanta_Braves":               {PrimaryColor: "#CE1141", SecondaryColor: "#13274F"},
+    "Baltimore_Orioles":            {PrimaryColor: "#DF4601", SecondaryColor: "#000000"},
+    "Boston_Red_Sox":               {PrimaryColor: "#BD3039", SecondaryColor: "#0D2B56"},
+    "Chicago_White_Sox":            {PrimaryColor: "#000000", SecondaryColor: "#C4CED4"},
+    "Chicago_Cubs":                 {PrimaryColor: "#CC3433", SecondaryColor: "#0E3386"},
+    "Cincinnati_Reds":              {PrimaryColor: "#C6011F", SecondaryColor: "#000000"},
+    "Cleveland_Guardians":          {PrimaryColor: "#E31937", SecondaryColor: "#0C2340"},
+    "Colorado_Rockies":             {PrimaryColor: "#33006F", SecondaryColor: "#C4CED4"},
+    "Detroit_Tigers":               {PrimaryColor: "#0C2340", SecondaryColor: "#FA4616"},
+    "Houston_Astros":               {PrimaryColor: "#EB6E1F", SecondaryColor: "#002D62"},
+    "Kansas_City_Royals":           {PrimaryColor: "#004687", SecondaryColor: "#BD9B60"},
+    "Los_Angeles_Angels":           {PrimaryColor: "#BA0021", SecondaryColor: "#003263"},
+    "Los_Angeles_Dodgers":          {PrimaryColor: "#005A9C", SecondaryColor: "#EF3E42"},
+    "Miami_Marlins":                {PrimaryColor: "#00A3E0", SecondaryColor: "#EF3340"},
+    "Milwaukee_Brewers":            {PrimaryColor: "#0A2351", SecondaryColor: "#B6922E"},
+    "Minnesota_Twins":              {PrimaryColor: "#002B5C", SecondaryColor: "#D31145"},
+    "New_York_Yankees":             {PrimaryColor: "#003087", SecondaryColor: "#E4002C"},
+    "New_York_Mets":                {PrimaryColor: "#002D72", SecondaryColor: "#FF5910"},
+    "Oakland_Athletics":            {PrimaryColor: "#003831", SecondaryColor: "#EFB21E"},
+    "Philadelphia_Phillies":        {PrimaryColor: "#E81828", SecondaryColor: "#002D72"},
+    "Pittsburgh_Pirates":           {PrimaryColor: "#FFC72C", SecondaryColor: "#27251F"},
+    "San_Diego_Padres":             {PrimaryColor: "#002D62", SecondaryColor: "#A2AAAD"},
+    "San_Francisco_Giants":         {PrimaryColor: "#FD5A1E", SecondaryColor: "#27251F"},
+    "Seattle_Mariners":             {PrimaryColor: "#0C2C56", SecondaryColor: "#005C5C"},
+    "St_Louis_Cardinals":           {PrimaryColor: "#C41E3A", SecondaryColor: "#0C2340"},
+    "Tampa_Bay_Rays":               {PrimaryColor: "#092C5C", SecondaryColor: "#8FBCE6"},
+    "Texas_Rangers":                {PrimaryColor: "#003278", SecondaryColor: "#C0111F"},
+    "Toronto_Blue_Jays":            {PrimaryColor: "#134A8E", SecondaryColor: "#1D2D5C"},
+    "Washington_Nationals":         {PrimaryColor: "#AB0003", SecondaryColor: "#14225A"},
+}
