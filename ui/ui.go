@@ -27,7 +27,7 @@ import (
 
 func UI(eventsMap map[string][]models.Event) {
   var footballPage = Formatter(eventsMap) 
-  table := CreateTable(footballPage["Americanfootball_ncaaf"]) 
+  table := CreateTable("AmericanFootball_ncaaf", footballPage["Americanfootball_ncaaf"]) 
   app := tview.NewApplication().
     SetRoot(table, true).
     SetFocus(table)

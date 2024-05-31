@@ -1,77 +1,108 @@
+/*
+A presentation of the tview package, implemented with tview.
+
+# Navigation
+
+The presentation will advance to the next slide when the primitive demonstrated
+in the current slide is left (usually by hitting Enter or Escape). Additionally,
+the following shortcuts can be used:
+
+  - Ctrl-N: Jump to next slide
+  - Ctrl-P: Jump to previous slide
+*/
 package main
 
 import (
 	"fmt"
-	"oddshub/API"
-	"oddshub/ui"
-  "oddshub/models"
+	"oddshub/slides"
+
+	//	"oddshub/ui"
+	"strconv"
+
+	"github.com/gdamore/tcell/v2"
+	"github.com/rivo/tview"
 )
 
+// Slide is a function which returns the slide's main primitive and its title.
+// It receives a "nextSlide" function which can be called to advance the
+// presentation to the next slide.
+//type Slide func(nextSlide func()) (title string, content tview.Primitive)
+
+// The application.
+var app = tview.NewApplication()
+
+// Starting point for the presentation.
 func main() {
-  //printInfoMap(API.GetAllUpcomingEventsMap())
-  //API.GetAllUpcomingEvents()
-  //printInfo(API.GetAllUpcomingEvents())
-  ui.UI(API.GetAllUpcomingEventsMap()) 
-}
+	presentationSlides := slides.GetSlides()
+	// The presentation presentationSlides.
+	//	presentationSlides := []Slide{
+	//	slides.Cover,
+	//slides.NFL_football,
+	//	  tables.NCAA_football,
+	//    tables.NBA_basketball,
+	//    tables.NCAA_basketball,
+	//    tables.MLB_baseball,
+	//    tables.NCAA_baseball,
+	//    tables.MMA,
+	//    tables.NHL_hockey,
+	//    tables.Masters_golf,
+	//    tables.French_open_tennis,
+	//}
 
-func printInfo(events []models.Event) {
+	pages := tview.NewPages()
 
-  for _, event := range events {
+	// The bottom row has some info on where we are.
+	info := tview.NewTextView().
+		SetDynamicColors(true).
+		SetRegions(true).
+		SetWrap(false).
+		SetHighlightedFunc(func(added, removed, remaining []string) {
+			if len(added) == 0 {
+				return
+			}
+			pages.SwitchToPage(added[0])
+		})
 
-    fmt.Printf("ID: %s\n", event.ID)
-    fmt.Printf("Sport: %s\n", event.SportTitle)
-    fmt.Printf("Commence Time: %s\n", event.CommenceTime)
-    fmt.Printf("Home Team: %s\n", event.HomeTeam)
-    fmt.Printf("Away Team: %s\n", event.AwayTeam)
-    fmt.Println("Bookmakers:")
+	// Create the pages for all slides.
+	previousSlide := func() {
+		slide, _ := strconv.Atoi(info.GetHighlights()[0])
+		slide = (slide - 1 + len(presentationSlides)) % len(presentationSlides)
+		info.Highlight(strconv.Itoa(slide)).
+			ScrollToHighlight()
+	}
+	nextSlide := func() {
+		slide, _ := strconv.Atoi(info.GetHighlights()[0])
+		slide = (slide + 1) % len(presentationSlides)
+		info.Highlight(strconv.Itoa(slide)).
+			ScrollToHighlight()
+	}
+	for index, slide := range presentationSlides {
+		title, primitive := slide(nextSlide)
+		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
+		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
+	}
+	info.Highlight("0")
 
+	// Create the main layout.
+	layout := tview.NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(pages, 0, 1, true).
+		AddItem(info, 1, 1, false)
 
-    for _, bookmaker := range event.Bookmakers {
-      fmt.Printf("  - Title: %s\n", bookmaker.Title)
-      fmt.Println("    Markets:")
-      for _, market := range bookmaker.Markets {
-        fmt.Printf("      - Key: %s\n", market.Key)
-        fmt.Printf("        Last Update: %s\n", market.LastUpdate)
-        fmt.Println("        Outcomes:")
-        for _, outcome := range market.Outcomes {
-          fmt.Printf("          - Name: %s, Price: %f, Point: %f\n", outcome.Name, outcome.Price, outcome.Point)
-        }
-      }
-    }
+	// Shortcuts to navigate the slides.
+	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyCtrlN {
+			nextSlide()
+			return nil
+		} else if event.Key() == tcell.KeyCtrlP {
+			previousSlide()
+			return nil
+		}
+		return event
+	})
 
-    fmt.Println()
-  }
-}
-
-
-func printInfoMap(eventsMap map[string][]models.Event) {
-
-  for sportName, events := range eventsMap {
-    fmt.Println(sportName)
-    for _, event := range events {
-
-      fmt.Printf("ID: %s\n", event.ID)
-      fmt.Printf("Sport: %s\n", event.SportTitle)
-      fmt.Printf("Commence Time: %s\n", event.CommenceTime)
-      fmt.Printf("Home Team: %s\n", event.HomeTeam)
-      fmt.Printf("Away Team: %s\n", event.AwayTeam)
-      fmt.Println("Bookmakers:")
-
-
-      for _, bookmaker := range event.Bookmakers {
-        fmt.Printf("  - Title: %s\n", bookmaker.Title)
-        fmt.Println("    Markets:")
-        for _, market := range bookmaker.Markets {
-          fmt.Printf("      - Key: %s\n", market.Key)
-          fmt.Printf("        Last Update: %s\n", market.LastUpdate)
-          fmt.Println("        Outcomes:")
-          for _, outcome := range market.Outcomes {
-            fmt.Printf("          - Name: %s, Price: %f, Point: %f\n", outcome.Name, outcome.Price, outcome.Point)
-          }
-        }
-      }
-
-      fmt.Println()
-    }
-  }
+	// Start the application.
+	if err := app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run(); err != nil {
+		panic(err)
+	}
 }
