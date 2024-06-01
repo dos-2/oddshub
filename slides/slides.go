@@ -9,11 +9,10 @@ import (
 // presentation to the next slide.
 type Slide func(nextSlide func()) (title string, content tview.Primitive)
 
-
 func GetSlides() []Slide {
-    return []Slide{
-        Cover,
-        NFL_football,
+	return []Slide{
+		Cover,
+		NFL_football,
 		//	NCAA_football,
 		//  NBA_basketball,
 		//  NCAA_basketball,
@@ -23,5 +22,5 @@ func GetSlides() []Slide {
 		//  NHL_hockey,
 		//  Masters_golf,
 		//  French_open_tennis,
-    }
+	}
 }

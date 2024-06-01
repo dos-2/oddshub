@@ -1,4 +1,4 @@
-package slides 
+package slides
 
 import (
 	"fmt"
@@ -38,7 +38,7 @@ func Cover(nextSlide func()) (title string, content tview.Primitive) {
 		}
 	}
 	logoBox := tview.NewTextView().
-		SetTextColor(tcell.ColorGreen).
+		SetTextColor(tcell.NewRGBColor(57, 255, 20)).
 		SetDoneFunc(func(key tcell.Key) {
 			nextSlide()
 		})
@@ -62,5 +62,5 @@ func Cover(nextSlide func()) (title string, content tview.Primitive) {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-	return "Menu", flex
+	return "oddshub", flex
 }
