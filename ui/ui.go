@@ -90,7 +90,7 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 			content = primitive
 		}
 		pages.AddPage(strconv.Itoa(index), content, true, index == 0)
-		fmt.Fprintf(info, `%d ["%d"][#00FFFF]%s[white][""]  `, index+1, index, title)
+		fmt.Fprintf(info, `["%d"][#00FFFF]%s[white][""]  `, index, title)
 	}
 	info.Highlight("0")
 }

@@ -22,3 +22,5 @@ go.work
 
 # secrets
 .env
+
+*.DS_Store

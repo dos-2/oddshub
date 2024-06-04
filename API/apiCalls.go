@@ -54,8 +54,7 @@ func fetchEventsMap(sport sports.Sport, apiKey string, wg *sync.WaitGroup, mu *s
 
 	var events []models.Event
 	if err := json.Unmarshal(response, &events); err != nil {
-		log.Println("Error unmarshalling response:", err)
-		return
+		log.Panic("API is not functioning correctly, most likely something is wrong with the key", err)
 	}
 
 	for i, event := range events {

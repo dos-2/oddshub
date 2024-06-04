@@ -99,6 +99,7 @@ func ExtractTeamOdds(event models.Event) models.TeamOdds {
 }
 
 func getColors(sport string, homeTeam string, awayTeam string) (models.TeamColors, models.TeamColors) {
+	fmt.Print(sport)
 	colorsMap, exists := colors.ColorsMap[sport]
 	if !exists {
 		return models.TeamColors{}, models.TeamColors{}

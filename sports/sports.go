@@ -15,7 +15,8 @@ const (
 	Tennis_wta_french_open         Sport = "tennis_wta_french_open"
 	Baseball_mlb                   Sport = "baseball_mlb"
 	Baseball_ncaa                  Sport = "baseball_ncaa"
-	//Basketball_ncaa                Sport = "basketball_ncaa"
+
+// Basketball_ncaa                Sport = "basketball_ncaa"
 )
 
 func AllSports() []Sport {

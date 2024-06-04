@@ -10,12 +10,14 @@ const (
 	Icehockey_nhl           Title = "NHL Hockey"
 	Mma_mixed_martial_arts  Title = "MMA"
 	Soccer_usa_mls          Title = "MLS Soccer"
-	Tennis_atp_french_open  Title = "French Open"
+	Tennis_atp_french_open  Title = "Mens French Open"
+	Tennis_wta_french_open  Title = "Womens French Open"
 	Baseball_mlb            Title = "MLB Baseball"
 	Baseball_ncaa           Title = "NCAA Baseball"
 	Basketball_ncaa         Title = "NCAA Basketball"
+	Boxing                  Title = "Boxing"
 )
 
 func AllTitles() []Title {
-	return []Title{Americanfootball_nfl, Americanfootball_ncaaf, Basketball_nba, Basketball_ncaa, Baseball_mlb, Baseball_ncaa, Golf_masters_tournament, Icehockey_nhl, Mma_mixed_martial_arts, Soccer_usa_mls, Tennis_atp_french_open}
+	return []Title{Americanfootball_nfl, Americanfootball_ncaaf, Basketball_nba, Basketball_ncaa, Baseball_mlb, Baseball_ncaa, Boxing, Golf_masters_tournament, Icehockey_nhl, Mma_mixed_martial_arts, Soccer_usa_mls, Tennis_atp_french_open, Tennis_wta_french_open}
 }
