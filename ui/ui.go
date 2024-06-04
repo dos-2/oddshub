@@ -9,6 +9,8 @@ package ui
 
 import (
 	"fmt"
+	"oddshub/API"
+	"oddshub/models"
 	"oddshub/slides"
 	"strconv"
 
@@ -21,6 +23,9 @@ type Slide func(nextSlide func()) (title string, content tview.Primitive)
 var app = tview.NewApplication()
 
 func RunApp() error {
+	// Load sports events
+	events := loadEvents()
+	// Load slides
 	presentationSlides := slides.GetSlides()
 
 	pages := tview.NewPages()
@@ -29,7 +34,7 @@ func RunApp() error {
 	// Create navigation functions
 	previousSlide, nextSlide := createNavigationFunctions(info, presentationSlides)
 	// Create pages for all slides
-	setupSlides(pages, info, presentationSlides, nextSlide)
+	setupSlides(events, pages, info, presentationSlides, nextSlide)
 	// Create the main layout.
 	layout := tview.NewFlex().
 		SetDirection(tview.FlexRow).
@@ -68,10 +73,23 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 	return previousSlide, nextSlide
 }
 
-func setupSlides(pages *tview.Pages, info *tview.TextView, slides []slides.Slide, nextSlide func()) {
+func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tview.TextView, slides []slides.Slide, nextSlide func()) {
 	for index, slide := range slides {
-		title, primitive := slide(nextSlide)
-		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
+		eventList, exists := events[slide.Name]
+		if !exists || index == 0 {
+			eventList = []models.Event{}
+		}
+		title, header, primitive := slide.Content(eventList, nextSlide)
+		var content tview.Primitive
+		// Add the header to the slide's content
+		content = tview.NewFlex().
+			SetDirection(tview.FlexRow).
+			AddItem(tview.NewTextView().SetText(header), 1, 1, false).
+			AddItem(primitive, 0, 1, true)
+		if index == 0 {
+			content = primitive
+		}
+		pages.AddPage(strconv.Itoa(index), content, true, index == 0)
 		fmt.Fprintf(info, `%d ["%d"][#00FFFF]%s[white][""]  `, index+1, index, title)
 	}
 	info.Highlight("0")
@@ -88,4 +106,12 @@ func setupNavigationShortcuts(app *tview.Application, previousSlide func(), next
 		}
 		return event
 	})
+}
+
+func loadEvents() map[string][]models.Event {
+	events := API.GetAllUpcomingEventsMap()
+	if events == nil {
+		panic("Failed to load events")
+	}
+	return events
 }

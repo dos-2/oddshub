@@ -7,22 +7,26 @@ import (
 	"github.com/rivo/tview"
 )
 
-//const tableData = `Commencement Date|Location|Teams|Bookmaker|Money Line|Spread|Total
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108
-//
-//
-//  1/6/2017|HOME|Ohio State Buckeyes|Fanduel|-385|-9.5 -110|O 47.5 +112
-//  |AWAY|Michigan Wolverines|Fanduel|+300|+9.5 -110| U 47.5 -108
-//  `
+func parseColorTag(text string) (string, tcell.Color, tcell.Color) {
+	// Default colors
+	textColor := tcell.ColorWhite
+	bgColor := tcell.ColorBlack
+
+	// Check for color tags
+	if strings.HasPrefix(text, "[") && strings.Contains(text, "]") {
+		endIndex := strings.Index(text, "]")
+		tag := text[1:endIndex]
+		text = text[endIndex+1:]
+
+		colors := strings.Split(tag, ":")
+		if len(colors) == 2 {
+			textColor = tcell.GetColor(colors[0])
+			bgColor = tcell.GetColor(colors[1])
+		}
+	}
+
+	return text, textColor, bgColor
+}
 
 func CreateTable(sportName string, tableData string) *tview.Table {
 	// Set up event listeners for mouse events
@@ -34,28 +38,27 @@ func CreateTable(sportName string, tableData string) *tview.Table {
 	// Set up the table cells
 	for row, line := range strings.Split(tableData, "\n") {
 		for column, cell := range strings.Split(line, "|") {
-			color := tcell.ColorWhite
-			rowBgColor := tcell.ColorBlack
+			cellText, textColor, bgColor := parseColorTag(cell)
 			align := tview.AlignCenter
 			selectable := true
 
 			if row == 0 {
-				rowBgColor = tcell.NewRGBColor(57, 255, 20)
-				color = tcell.ColorBlack
+				bgColor = tcell.NewRGBColor(57, 255, 20)
+				textColor = tcell.ColorBlack
 				align = tview.AlignCenter
 				selectable = false
 			}
 
 			if column == 0 && row == 0 {
-				rowBgColor = tcell.NewRGBColor(0, 255, 255)
+				bgColor = tcell.NewRGBColor(0, 255, 255)
 			}
 
-			tableCell := tview.NewTableCell(cell).
-				SetTextColor(color).
+			tableCell := tview.NewTableCell(cellText).
+				SetTextColor(textColor).
 				SetAlign(align).
 				SetSelectable(selectable).
 				SetExpansion(1).
-				SetBackgroundColor(rowBgColor).
+				SetBackgroundColor(bgColor).
 				SetSelectedStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 					Background(tcell.NewRGBColor(0, 255, 255)))
 

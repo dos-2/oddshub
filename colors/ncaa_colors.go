@@ -2,7 +2,7 @@ package colors
 
 import "oddshub/models"
 
-var NCAAFootballTeamColorMap = map[string]models.TeamColors{
+var NCAATeamColorMap = map[string]models.TeamColors{
 	"Air_Force_Falcons":                   {PrimaryColor: "#004A7F", SecondaryColor: "#FFFFFF"},
 	"Akron_Zips":                          {PrimaryColor: "#0D254C", SecondaryColor: "#A7A9AC"},
 	"Alabama_Crimson_Tide":                {PrimaryColor: "#A32638", SecondaryColor: "#000000"},

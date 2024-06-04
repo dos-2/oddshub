@@ -1,126 +1,93 @@
 package API
 
-import(
-  "encoding/json"
-  "net/http"
-  "fmt"
-  "io"
-  "os"
-  "github.com/joho/godotenv"
-  "log"
-  "oddshub/sport"
-  "oddshub/models"
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"oddshub/models"
+	"oddshub/sports"
+	"os"
+	"sync"
+
+	"github.com/joho/godotenv"
 )
 
 func getAPIKEY() string {
-  err := godotenv.Load()
-  if err != nil {
-    fmt.Println("Error loading .env file")
-  }
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
 
-  apiKey := os.Getenv("API_KEY")
+	apiKey := os.Getenv("API_KEY")
 
-  if apiKey == "" {
-    log.Fatal("API key is missing")
-  }
+	if apiKey == "" {
+		log.Fatal("API key is missing")
+	}
 
-  return apiKey
-
+	return apiKey
 }
 
-func GetAllUpcomingEvents() []models.Event {
-  var apiKey string = getAPIKEY()
-  var allEvents []models.Event
+func fetchEventsMap(sport sports.Sport, apiKey string, wg *sync.WaitGroup, mu *sync.Mutex, eventMap map[string][]models.Event) {
+	defer wg.Done()
 
-  for _, sport := range sport.AllSports() {
+	var url string
+	if sport == sports.Golf_masters_tournament_winner {
+		url = fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=&oddsFormat=american&commenceTimeFrom=2024-06-04T00:00:00Z&commenceTimeTo=2024-09-29T00:00:00Z", sport, apiKey)
+	} else {
+		url = fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american&commenceTimeFrom=2024-06-04T00:00:00Z&commenceTimeTo=2024-09-29T00:00:00Z", sport, apiKey)
+	}
 
-    req, err := http.Get(fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american", sport, apiKey))      
+	req, err := http.Get(url)
+	if err != nil {
+		log.Println("Error making request:", err)
+		return
+	}
+	defer req.Body.Close()
 
-    if err != nil {
-      fmt.Print(err.Error())
-    }
+	response, err := io.ReadAll(req.Body)
+	if err != nil {
+		log.Println("Error reading response:", err)
+		return
+	}
 
-    defer req.Body.Close()
-    response, err := io.ReadAll(req.Body)
+	var events []models.Event
+	if err := json.Unmarshal(response, &events); err != nil {
+		log.Println("Error unmarshalling response:", err)
+		return
+	}
 
-    if err != nil {
-      fmt.Print(err.Error())
-    }
+	for i, event := range events {
+		var filteredBookmakers []models.Bookmaker
+		for _, bookmaker := range event.Bookmakers {
+			if bookmaker.Title == "DraftKings" {
+				filteredBookmakers = append(filteredBookmakers, bookmaker)
+			}
+		}
 
-    var events []models.Event
-    msg := json.Unmarshal(response, &events)
+		if len(filteredBookmakers) == 0 && len(event.Bookmakers) != 0 {
+			filteredBookmakers = append(filteredBookmakers, event.Bookmakers[0])
+		}
+		events[i].Bookmakers = filteredBookmakers
+	}
 
-    if msg  != nil {
-      fmt.Println(err)
-    }
-
-    for i, event := range events {
-      // Initialize a slice to store filtered bookmakers
-      var filteredBookmakers []models.Bookmaker
-      // Iterate over each bookmaker
-      for _, bookmaker := range event.Bookmakers {
-        if bookmaker.Title == "FanDuel" {
-          // If it is, append it to the filteredBookmakers slice
-          filteredBookmakers = append(filteredBookmakers, bookmaker)
-        }
-      }
-
-      if len(filteredBookmakers) == 0 && len(event.Bookmakers) != 0 {
-        filteredBookmakers = append(filteredBookmakers, event.Bookmakers[0])
-      }
-      events[i].Bookmakers = filteredBookmakers
-    }
-    allEvents = append(allEvents, events...)
-  }
-
-  return allEvents
+	mu.Lock()
+	eventMap[string(sport)] = events
+	mu.Unlock()
 }
 
 func GetAllUpcomingEventsMap() map[string][]models.Event {
-  var apiKey string = getAPIKEY()
-  var eventMap = make(map[string][]models.Event)
+	apiKey := getAPIKEY()
+	eventMap := make(map[string][]models.Event)
+	var wg sync.WaitGroup
+	var mu sync.Mutex
 
-  for _, sport := range sport.AllSports() {
+	for _, sport := range sports.AllSports() {
+		wg.Add(1)
+		go fetchEventsMap(sport, apiKey, &wg, &mu, eventMap)
+	}
 
-    req, err := http.Get(fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american", sport, apiKey))      
-
-    if err != nil {
-      fmt.Print(err.Error())
-    }
-
-    defer req.Body.Close()
-    response, err := io.ReadAll(req.Body)
-
-    if err != nil {
-      fmt.Print(err.Error())
-    }
-
-    var events []models.Event
-    msg := json.Unmarshal(response, &events)
-
-    if msg  != nil {
-      fmt.Println(err)
-    }
-
-    for i, event := range events {
-      // Initialize a slice to store filtered bookmakers
-      var filteredBookmakers []models.Bookmaker
-      // Iterate over each bookmaker
-      for _, bookmaker := range event.Bookmakers {
-        if bookmaker.Title == "FanDuel" {
-          // If it is, append it to the filteredBookmakers slice
-          filteredBookmakers = append(filteredBookmakers, bookmaker)
-        }
-      }
-
-      if len(filteredBookmakers) == 0 && len(event.Bookmakers) != 0 {
-        filteredBookmakers = append(filteredBookmakers, event.Bookmakers[0])
-      }
-      events[i].Bookmakers = filteredBookmakers
-    }
-    eventMap[string(sport)] = events
-  }
-
-  return eventMap
+	wg.Wait()
+	return eventMap
 }
-

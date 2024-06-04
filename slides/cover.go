@@ -2,6 +2,7 @@ package slides
 
 import (
 	"fmt"
+	"oddshub/models"
 	"strings"
 
 	"github.com/gdamore/tcell/v2"
@@ -22,12 +23,12 @@ const logo = `
 
 const (
 	subtitle   = `oddshub - A terminal UI for sports betting nerds`
-	navigation = `[yellow]Ctrl-N[-]: Next slide    [yellow]Ctrl-P[-]: Previous slide    [yellow]Ctrl-C[-]: Exit`
-	mouse      = `(or use your mouse)`
+	navigation = `[#FF8C00]Ctrl-N[#00FFFF]: Next slide    [#FF8C00]Ctrl-P[#00FFFF]: Previous slide    [#FF8C00]Ctrl-C[#00FFFF]: Exit`
+	mouse      = `[#00FFFF](or use your mouse)`
 )
 
 // Cover returns the cover page.
-func Cover(nextSlide func()) (title string, content tview.Primitive) {
+func Cover(games []models.Event, nextSlide func()) (title string, header string, content tview.Primitive) {
 	// What's the size of the logo?
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
@@ -62,5 +63,5 @@ func Cover(nextSlide func()) (title string, content tview.Primitive) {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-	return "oddshub", flex
+	return "oddshub", "", flex
 }
