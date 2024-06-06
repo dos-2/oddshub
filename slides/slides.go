@@ -23,12 +23,12 @@ func GetSlides() []Slide {
 		{Name: string(sports.Icehockey_nhl), Content: NHLHockey},
 		{Name: string(sports.Soccer_usa_mls), Content: MLSSoccer},
 		{Name: string(sports.Americanfootball_ncaaf), Content: NCAAFootball},
-		//{Name: string(sports.Basketball_ncaa), Content: NCAABasketball},
+		{Name: string(sports.Basketball_ncaa), Content: NCAABasketball},
 		{Name: string(sports.Baseball_ncaa), Content: NCAABaseball},
-		//		{Name: string(sports.Boxing), Content: Boxing},
-		//		{Name: string(sports.Mma_mixed_martial_arts), Content: Mma},
-		//		{Name: string(sports.Tennis_atp_french_open), Content: MensFrenchOpenTennis},
-		//		{Name: string(sports.Tennis_wta_french_open), Content: WomensFrenchOpenTennis},
-		//		{Name: string(sports.Golf_masters_tournament_winner), Content: MastersGolf},
+		{Name: string(sports.Boxing), Content: Boxing},
+		{Name: string(sports.Mma_mixed_martial_arts), Content: Mma},
+		{Name: string(sports.Tennis_atp_french_open), Content: MensFrenchOpenTennis},
+		{Name: string(sports.Tennis_wta_french_open), Content: WomensFrenchOpenTennis},
+		{Name: string(sports.Golf_masters_tournament_winner), Content: MastersGolf},
 	}
 }

@@ -13,7 +13,7 @@ func parseColorTag(text string) (string, tcell.Color, tcell.Color) {
 	bgColor := tcell.ColorBlack
 
 	// Check for color tags
-  if strings.HasPrefix(text, "[") && strings.Contains(text, "]") && strings.Contains(text, ":"){
+	if strings.HasPrefix(text, "[") && strings.Contains(text, "]") && strings.Contains(text, ":") {
 		endIndex := strings.Index(text, "]")
 		tag := text[1:endIndex]
 		text = text[endIndex+1:]
@@ -28,7 +28,7 @@ func parseColorTag(text string) (string, tcell.Color, tcell.Color) {
 	return text, textColor, bgColor
 }
 
-func CreateTable(sportName string, tableData string) *tview.Table {
+func CreateH2HTable(sportName string, tableData string) *tview.Table {
 	// Set up event listeners for mouse events
 	table := tview.NewTable().
 		SetFixed(1, 1).
@@ -36,7 +36,9 @@ func CreateTable(sportName string, tableData string) *tview.Table {
 		SetSelectable(true, false)
 
 	// Set up the table cells
-	for row, line := range strings.Split(tableData, "\n") {
+	rows := strings.Split(tableData, "\n")
+	for row := 0; row < len(rows)-1; row++ {
+		line := rows[row]
 		for column, cell := range strings.Split(line, "|") {
 			cellText, textColor, bgColor := parseColorTag(cell)
 			align := tview.AlignCenter
@@ -51,6 +53,9 @@ func CreateTable(sportName string, tableData string) *tview.Table {
 
 			if column == 0 && row == 0 {
 				bgColor = tcell.NewRGBColor(0, 255, 255)
+			}
+			if row%3 == 0 { // Make every third row unselectable
+				selectable = false
 			}
 
 			tableCell := tview.NewTableCell(cellText).

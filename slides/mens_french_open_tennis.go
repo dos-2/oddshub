@@ -8,9 +8,9 @@ import (
 
 // FrenchOpenTennis creates a slide for tennis odds.
 func MensFrenchOpenTennis(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Location|Players|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "Mens French Open Tennis", GetHeader(models.Tennis_atp_french_open), CreateTable("Mens French Open Tennis", tableData)
+	return "Mens French Open Tennis", GetHeader(models.Tennis_atp_french_open), CreateH2HTable("Mens French Open Tennis", tableData)
 }

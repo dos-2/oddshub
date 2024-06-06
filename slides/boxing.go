@@ -8,9 +8,9 @@ import (
 
 // Boxing creates a slide for boxing odds.
 func Boxing(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Ranking|Players|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "Boxing", GetHeader(models.Boxing), CreateTable("Boxing", tableData)
+	return "Boxing", GetHeader(models.Boxing), CreateH2HTable("Boxing", tableData)
 }

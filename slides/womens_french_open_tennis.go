@@ -8,9 +8,9 @@ import (
 
 // WomensFrenchOpenTennis creates a slide for tennis odds.
 func WomensFrenchOpenTennis(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Location|Players|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "Womens French Open Tennis", GetHeader(models.Tennis_wta_french_open), CreateTable("Womens French Open Tennis", tableData)
+	return "Womens French Open Tennis", GetHeader(models.Tennis_wta_french_open), CreateH2HTable("Womens French Open Tennis", tableData)
 }

@@ -8,9 +8,9 @@ import (
 
 // Mma creates a slide for MMA odds.
 func Mma(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Ranking|Players|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "MMA", GetHeader(models.Mma_mixed_martial_arts), CreateTable("MMA", tableData)
+	return "MMA", GetHeader(models.Mma_mixed_martial_arts), CreateH2HTable("MMA", tableData)
 }

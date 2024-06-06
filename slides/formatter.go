@@ -15,33 +15,60 @@ func FormatTeamEvent(event models.Event) string {
 	commenceDate := event.CommenceTime.Format("01/02/2006")
 	// Iterate over bookmakers to format data
 	for _, bookmaker := range event.Bookmakers {
-		var underPoints string = ""
-		var overPoints string = ""
+		var underPoints string = "N/A"
+		var overPoints string = "N/A"
 		if teamOdds.HomeOdds.Totals.OverPoint != 0 {
 			overPoints = fmt.Sprintf("%g", teamOdds.HomeOdds.Totals.OverPoint)
 		}
 		if teamOdds.AwayOdds.Totals.UnderPoint != 0 {
 			underPoints = fmt.Sprintf("%g", teamOdds.AwayOdds.Totals.UnderPoint)
 		}
+
+		var spreadExists bool = teamOdds.HomeOdds.Spread.Price != 0 && teamOdds.AwayOdds.Spread.Price != 0
+		var moneylineExists bool = teamOdds.HomeOdds.Moneyline.Price != 0 && teamOdds.AwayOdds.Moneyline.Price != 0
+		var totalsExists bool = teamOdds.HomeOdds.Totals.OverPrice != 0 && teamOdds.AwayOdds.Totals.UnderPrice != 0
 		homeColors, awayColors := getColors(event.SportKey, event.HomeTeam, event.AwayTeam)
 		var homeTeamText string = fmt.Sprintf("[%s:%s]%s", homeColors.SecondaryColor, homeColors.PrimaryColor, event.HomeTeam)
 		var awayTeamText string = fmt.Sprintf("[%s:%s]%s", awayColors.SecondaryColor, awayColors.PrimaryColor, event.AwayTeam)
-    var bookmakerName string = fmt.Sprintf("[%s:%s]%s", "#FFFFFF", "#333333", bookmaker.Title)
-    var overOdds string = fmt.Sprintf("[%s:%s]O %s %s", "#FFFFFF", "#333333", overPoints, formatMoneylineWithColor(teamOdds.HomeOdds.Totals.OverPrice))
-    var awayOdds string = fmt.Sprintf("[%s:%s]U %s %s", "#FFFFFF", "#333333", underPoints, formatMoneylineWithColor(teamOdds.AwayOdds.Totals.UnderPrice))
+		var bookmakerName string = fmt.Sprintf("[%s:%s]%s", "#FFFFFF", "#333333", bookmaker.Title)
+
+    var overOdds string = "[#FFFFFF:#333333]N/A"
+		var awayOdds string = "[#FFFFFF:#333333]N/A"
+    var homeSpread string = "[#FFFFFF:#333333]N/A"
+    var awaySpread string = "[#FFFFFF:#333333]N/A"
+    var homeMoney string = "[#FFFFFF:#333333]N/A"
+    var awayMoney string = "[#FFFFFF:#333333]N/A"
+
+    if totalsExists {
+      overOdds = fmt.Sprintf("[%s:%s]O %s %s", "#FFFFFF", "#333333", overPoints, 
+      formatMoneylineWithColor(teamOdds.HomeOdds.Totals.OverPrice))
+      awayOdds = fmt.Sprintf("[%s:%s]U %s %s", "#FFFFFF", "#333333", underPoints,
+      formatMoneylineWithColor(teamOdds.AwayOdds.Totals.UnderPrice))
+    }
+
+    if spreadExists {
+        homeSpread = formatWithSign(teamOdds.HomeOdds.Spread.Point) + " " + 
+      formatMoneylineWithColor(teamOdds.HomeOdds.Spread.Price)
+      awaySpread = formatWithSign(teamOdds.AwayOdds.Spread.Point) + " " +  
+      formatMoneylineWithColor(teamOdds.AwayOdds.Spread.Price) 
+    }
+
+    if moneylineExists {
+       homeMoney = formatMoneylineWithColor(teamOdds.HomeOdds.Moneyline.Price)
+       awayMoney = formatMoneylineWithColor(teamOdds.AwayOdds.Moneyline.Price)
+    }
+
 		// Format home team data with spread first
-    homeRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]HOME|%s|%s|%s %s|%s|%s",
-			homeColors.SecondaryColor, homeColors.PrimaryColor, commenceDate, homeColors.SecondaryColor, homeColors.PrimaryColor, homeTeamText, bookmakerName,
-			formatWithSign(teamOdds.HomeOdds.Spread.Point), formatMoneylineWithColor(teamOdds.HomeOdds.Spread.Price),
-			formatMoneylineWithColor(teamOdds.HomeOdds.Moneyline.Price), overOdds)
+		homeRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]HOME|%s|%s|%s|%s|%s",
+			homeColors.SecondaryColor, homeColors.PrimaryColor, commenceDate, homeColors.SecondaryColor, homeColors.PrimaryColor,
+      homeTeamText, bookmakerName, homeSpread, homeMoney , overOdds)
 		rows = append(rows, homeRow)
 		// Format away team data with spread first
-		awayRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]AWAY|%s|%s|%s %s|%s|%s",
-      awayColors.SecondaryColor, awayColors.PrimaryColor,"20:30:00",awayColors.SecondaryColor, awayColors.PrimaryColor, awayTeamText, bookmakerName,
-			formatWithSign(teamOdds.AwayOdds.Spread.Point), formatMoneylineWithColor(teamOdds.AwayOdds.Spread.Price),
-			formatMoneylineWithColor(teamOdds.AwayOdds.Moneyline.Price), awayOdds)
+		awayRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]AWAY|%s|%s|%s|%s|%s",
+			awayColors.SecondaryColor, awayColors.PrimaryColor, "20:30:00", awayColors.SecondaryColor, awayColors.PrimaryColor,
+      awayTeamText, bookmakerName, awaySpread, awayMoney, awayOdds)
 		rows = append(rows, awayRow)
-		rows = append(rows, "\n")
+		rows = append(rows, "||||||\n")
 	}
 
 	// Join rows into a single string
@@ -50,26 +77,22 @@ func FormatTeamEvent(event models.Event) string {
 
 // formatWithSign formats a float64 with a plus sign if it's positive, or an empty string if it's zero.
 func formatWithSign(value float64) string {
-	if value == 0 {
-		return ""
-	}
-
-  return fmt.Sprintf("[#FFFFFF:#333333]" + "%+g", value)
+	return fmt.Sprintf("[#FFFFFF:#333333]"+"%+g", value)
 
 }
 
 // formatMoneylineWithColor formats the moneyline with color based on the sign of the odds.
-func formatMoneylineWithColor( value float64) string {
+func formatMoneylineWithColor(value float64) string {
 	var color string
 	if value > 0 {
-		color = "#39FF14" 
-  } else if value < 0 {
-		color = "#FF3A3A" 
+		color = "#39FF14"
+	} else if value < 0 {
+		color = "#FF3A3A"
 	} else {
-		color = "#FFFFFF" 
-  }
-  var bgColor string = "#333333"
-  return fmt.Sprintf("[%s:%s]%+g", color, bgColor, value)
+		color = "#FFFFFF"
+	}
+	var bgColor string = "#333333"
+	return fmt.Sprintf("[%s:%s]%+g", color, bgColor, value)
 }
 
 func ExtractTeamOdds(event models.Event) models.TeamOdds {
@@ -116,20 +139,16 @@ func ExtractTeamOdds(event models.Event) models.TeamOdds {
 
 func getColors(sport string, homeTeam string, awayTeam string) (models.TeamColors, models.TeamColors) {
 	fmt.Print(sport)
-	colorsMap, exists := colors.ColorsMap[sport]
-	if !exists {
-		return models.TeamColors{}, models.TeamColors{}
-	}
+	colorsMap := colors.ColorsMap[sport]
 	homeColors, homeExists := colorsMap[homeTeam]
 	awayColors, awayExists := colorsMap[awayTeam]
 	if !homeExists {
-		homeColors.PrimaryColor = "[black]"
-		homeColors.SecondaryColor = "[white]"
+		homeColors.PrimaryColor = "#333333"
+		homeColors.SecondaryColor = "#FFFFFF"
 	}
 	if !awayExists {
-		awayColors.PrimaryColor = "[black]"
-		awayColors.SecondaryColor = "[white]"
+		awayColors.PrimaryColor = "#333333"
+		awayColors.SecondaryColor = "#FFFFFF"
 	}
 	return homeColors, awayColors
 }
-

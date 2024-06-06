@@ -8,9 +8,9 @@ import (
 
 // NcaaBasketball creates a slide for basketball odds.
 func NCAABasketball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "NCAA Basketball", GetHeader(models.Basketball_ncaa), CreateTable("NCAA Basketball", tableData)
+	return "NCAA Basketball", GetHeader(models.Basketball_ncaa), CreateH2HTable("NCAA Basketball", tableData)
 }

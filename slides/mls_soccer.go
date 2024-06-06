@@ -8,9 +8,9 @@ import (
 
 // MLSSoccer creates a slide for soccer odds.
 func MLSSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "MLS Soccer", GetHeader(models.Soccer_usa_mls), CreateTable("MLS Soccer", tableData)
+	return "MLS Soccer", GetHeader(models.Soccer_usa_mls), CreateH2HTable("MLS Soccer", tableData)
 }
