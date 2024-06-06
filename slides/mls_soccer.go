@@ -12,5 +12,5 @@ func MLSSoccer(games []models.Event, nextSlide func()) (string, string, tview.Pr
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "MLS Soccer", GetHeader(models.Soccer_usa_mls), CreateH2HTable("MLS Soccer", tableData)
+	return "MLS", GetHeader(models.Soccer_usa_mls), CreateH2HTable("MLS Soccer", tableData)
 }

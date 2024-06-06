@@ -12,5 +12,5 @@ func MLBBaseball(games []models.Event, nextSlide func()) (string, string, tview.
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "MLB Baseball", GetHeader(models.Baseball_mlb), CreateH2HTable("MLB Baseball", tableData)
+	return "MLB", GetHeader(models.Baseball_mlb), CreateH2HTable("MLB Baseball", tableData)
 }

@@ -12,5 +12,5 @@ func NFLfootball(games []models.Event, nextSlide func()) (string, string, tview.
 	for _, game := range games {
 		tableData += FormatTeamEvent(game) // check whats going on here
 	}
-	return "NFL Football", GetHeader(models.Americanfootball_nfl), CreateH2HTable("NFL Football", tableData)
+	return "NFL", GetHeader(models.Americanfootball_nfl), CreateH2HTable("NFL Football", tableData)
 }

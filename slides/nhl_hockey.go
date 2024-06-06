@@ -12,5 +12,5 @@ func NHLHockey(games []models.Event, nextSlide func()) (string, string, tview.Pr
 	for _, game := range games {
 		tableData += FormatTeamEvent(game) // check whats going on here
 	}
-	return "NHL Hockey", GetHeader(models.Icehockey_nhl), CreateH2HTable("NHL Hockey", tableData)
+	return "NHL", GetHeader(models.Icehockey_nhl), CreateH2HTable("NHL Hockey", tableData)
 }

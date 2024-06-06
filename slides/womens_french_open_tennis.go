@@ -12,5 +12,5 @@ func WomensFrenchOpenTennis(games []models.Event, nextSlide func()) (string, str
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "Womens French Open Tennis", GetHeader(models.Tennis_wta_french_open), CreateH2HTable("Womens French Open Tennis", tableData)
+	return "Womens French Open", GetHeader(models.Tennis_wta_french_open), CreateH2HTable("Womens French Open Tennis", tableData)
 }

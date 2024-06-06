@@ -4,7 +4,7 @@ type Title string
 
 const (
 	Americanfootball_ncaaf  Title = "NCAA Football"
-	Americanfootball_nfl    Title = "NFL Football"
+	Americanfootball_nfl    Title = "NFL"
 	Basketball_nba          Title = "NBA Basketball"
 	Golf_masters_tournament Title = "The Masters"
 	Icehockey_nhl           Title = "NHL Hockey"
