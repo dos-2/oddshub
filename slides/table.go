@@ -13,7 +13,7 @@ func parseColorTag(text string) (string, tcell.Color, tcell.Color) {
 	bgColor := tcell.ColorBlack
 
 	// Check for color tags
-	if strings.HasPrefix(text, "[") && strings.Contains(text, "]") {
+  if strings.HasPrefix(text, "[") && strings.Contains(text, "]") && strings.Contains(text, ":"){
 		endIndex := strings.Index(text, "]")
 		tag := text[1:endIndex]
 		text = text[endIndex+1:]

@@ -8,7 +8,7 @@ import (
 
 // FootballSlide creates a slide for football odds.
 func NFLfootball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" + "\n"
+	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n" 
 	for _, game := range games {
 		tableData += FormatTeamEvent(game) // check whats going on here
 	}

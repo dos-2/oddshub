@@ -12,7 +12,7 @@ func FormatTeamEvent(event models.Event) string {
 	var rows []string
 	teamOdds := ExtractTeamOdds(event)
 	// Format commencement time
-	commenceTime := event.CommenceTime.Format("01/02/2006")
+	commenceDate := event.CommenceTime.Format("01/02/2006")
 	// Iterate over bookmakers to format data
 	for _, bookmaker := range event.Bookmakers {
 		var underPoints string = ""
@@ -21,25 +21,25 @@ func FormatTeamEvent(event models.Event) string {
 			overPoints = fmt.Sprintf("%g", teamOdds.HomeOdds.Totals.OverPoint)
 		}
 		if teamOdds.AwayOdds.Totals.UnderPoint != 0 {
-			overPoints = fmt.Sprintf("%g", teamOdds.AwayOdds.Totals.UnderPoint)
+			underPoints = fmt.Sprintf("%g", teamOdds.AwayOdds.Totals.UnderPoint)
 		}
 		homeColors, awayColors := getColors(event.SportKey, event.HomeTeam, event.AwayTeam)
 		var homeTeamText string = fmt.Sprintf("[%s:%s]%s", homeColors.SecondaryColor, homeColors.PrimaryColor, event.HomeTeam)
 		var awayTeamText string = fmt.Sprintf("[%s:%s]%s", awayColors.SecondaryColor, awayColors.PrimaryColor, event.AwayTeam)
-		bookmakerName := bookmaker.Key // Get the bookmaker name
+    var bookmakerName string = fmt.Sprintf("[%s:%s]%s", "#FFFFFF", "#333333", bookmaker.Title)
+    var overOdds string = fmt.Sprintf("[%s:%s]O %s %s", "#FFFFFF", "#333333", overPoints, formatMoneylineWithColor(teamOdds.HomeOdds.Totals.OverPrice))
+    var awayOdds string = fmt.Sprintf("[%s:%s]U %s %s", "#FFFFFF", "#333333", underPoints, formatMoneylineWithColor(teamOdds.AwayOdds.Totals.UnderPrice))
 		// Format home team data with spread first
-		homeRow := fmt.Sprintf("%s|HOME|%s|%s|%s %s|%s|O %s %s",
-			commenceTime, homeTeamText, bookmakerName,
-			formatWithSign(teamOdds.HomeOdds.Spread.Point), formatWithSign(teamOdds.HomeOdds.Spread.Price),
-			formatWithSign(teamOdds.HomeOdds.Moneyline.Price),
-			overPoints, formatWithSign(teamOdds.HomeOdds.Totals.OverPrice))
+    homeRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]HOME|%s|%s|%s %s|%s|%s",
+			homeColors.SecondaryColor, homeColors.PrimaryColor, commenceDate, homeColors.SecondaryColor, homeColors.PrimaryColor, homeTeamText, bookmakerName,
+			formatWithSign(teamOdds.HomeOdds.Spread.Point), formatMoneylineWithColor(teamOdds.HomeOdds.Spread.Price),
+			formatMoneylineWithColor(teamOdds.HomeOdds.Moneyline.Price), overOdds)
 		rows = append(rows, homeRow)
 		// Format away team data with spread first
-		awayRow := fmt.Sprintf("|AWAY|%s|%s|%s %s|%s|U %s %s",
-			awayTeamText, bookmakerName,
-			formatWithSign(teamOdds.AwayOdds.Spread.Point), formatWithSign(teamOdds.AwayOdds.Spread.Price),
-			formatWithSign(teamOdds.AwayOdds.Moneyline.Price),
-			underPoints, formatWithSign(teamOdds.AwayOdds.Totals.UnderPrice))
+		awayRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]AWAY|%s|%s|%s %s|%s|%s",
+      awayColors.SecondaryColor, awayColors.PrimaryColor,"20:30:00",awayColors.SecondaryColor, awayColors.PrimaryColor, awayTeamText, bookmakerName,
+			formatWithSign(teamOdds.AwayOdds.Spread.Point), formatMoneylineWithColor(teamOdds.AwayOdds.Spread.Price),
+			formatMoneylineWithColor(teamOdds.AwayOdds.Moneyline.Price), awayOdds)
 		rows = append(rows, awayRow)
 		rows = append(rows, "\n")
 	}
@@ -53,7 +53,23 @@ func formatWithSign(value float64) string {
 	if value == 0 {
 		return ""
 	}
-	return fmt.Sprintf("%+g", value)
+
+  return fmt.Sprintf("[#FFFFFF:#333333]" + "%+g", value)
+
+}
+
+// formatMoneylineWithColor formats the moneyline with color based on the sign of the odds.
+func formatMoneylineWithColor( value float64) string {
+	var color string
+	if value > 0 {
+		color = "#39FF14" 
+  } else if value < 0 {
+		color = "#FF3A3A" 
+	} else {
+		color = "#FFFFFF" 
+  }
+  var bgColor string = "#333333"
+  return fmt.Sprintf("[%s:%s]%+g", color, bgColor, value)
 }
 
 func ExtractTeamOdds(event models.Event) models.TeamOdds {
@@ -116,3 +132,4 @@ func getColors(sport string, homeTeam string, awayTeam string) (models.TeamColor
 	}
 	return homeColors, awayColors
 }
+

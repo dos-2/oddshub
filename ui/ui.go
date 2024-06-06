@@ -109,7 +109,7 @@ func setupNavigationShortcuts(app *tview.Application, previousSlide func(), next
 }
 
 func loadEvents() map[string][]models.Event {
-	events := API.GetAllUpcomingEventsMap()
+	events := API.GetAllUpcomingEventsMap(true)
 	if events == nil {
 		panic("Failed to load events")
 	}
