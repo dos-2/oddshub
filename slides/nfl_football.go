@@ -10,7 +10,7 @@ import (
 func NFLfootball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
 	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n"
 	for _, game := range games {
-		tableData += FormatTeamEvent(game) // check whats going on here
+		tableData += FormatTeamEvent(game) 
 	}
 	return "NFL", GetHeader(models.Americanfootball_nfl), CreateH2HTable("NFL Football", tableData)
 }
