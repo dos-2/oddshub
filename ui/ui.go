@@ -49,7 +49,7 @@ func createInfoTextView(pages *tview.Pages) *tview.TextView {
 	info := tview.NewTextView().
 		SetDynamicColors(true).
 		SetRegions(true).
-		SetWrap(true).
+		SetWrap(false).
 		SetHighlightedFunc(func(added, removed, remaining []string) {
 			if len(added) == 0 {
 				return
