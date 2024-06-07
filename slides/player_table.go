@@ -2,7 +2,6 @@ package slides
 
 import (
 	"strings"
-
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -34,8 +33,8 @@ func CreateRoundRobinTable(sportName string, tableData string) *tview.Table {
       if column == 0 && row == 0 {
         bgColor = tcell.NewRGBColor(0, 255, 255)
       }
-      if row != 0 && row%2 == 0 { // Make every third row unselectable
-        bgColor = tcell.GetColor("#333333")
+      if row != 0 && row%2 == 0 { 
+        bgColor = tcell.GetColor("#000000")
       }
 
       tableCell := tview.NewTableCell(cellText).

@@ -12,5 +12,5 @@ func MastersGolf(games []models.Event, nextSlide func()) (string, string, tview.
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-	return "Masters Tournament", GetHeader(models.Golf_masters_tournament), CreateRoundRobinTable("Masters Tournament", tableData)
+	return "Masters Tournament", GetHeader(models.Golf_masters_tournament_winner), CreateRoundRobinTable(string(models.Golf_masters_tournament_winner), tableData)
 }
