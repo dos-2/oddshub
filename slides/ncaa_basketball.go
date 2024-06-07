@@ -2,7 +2,6 @@ package slides
 
 import (
 	"oddshub/models"
-  "fmt"
 	"github.com/rivo/tview"
 )
 
@@ -12,6 +11,5 @@ func NCAABasketball(games []models.Event, nextSlide func()) (string, string, tvi
 	for _, game := range games {
 		tableData += FormatTeamEvent(game)
 	}
-  fmt.Print(tableData)
 	return "NCAA Basketball", GetHeader(models.Basketball_ncaa), CreateH2HTable("NCAA Basketball", tableData)
 }
