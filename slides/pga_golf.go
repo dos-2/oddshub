@@ -7,7 +7,7 @@ import (
 )
 
 func PGAGolf(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Outrights||" + "\n"
+	tableData := "Commencement Date|Teams|Players|Bookmaker|Outrights||" + "\n"
   if len(games) > 0 {
 		tableData += FormatTournamentEvent(games[0]) 
   }

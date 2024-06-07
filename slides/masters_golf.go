@@ -8,9 +8,9 @@ import (
 
 // MastersGolf creates a slide for golf odds.
 func MastersGolf(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Players|Bookmaker|Spread|Money|Total" + "\n"
-	for _, game := range games {
-		tableData += FormatTeamEvent(game)
-	}
+	tableData := "Commencement Date|Teams|Players|Bookmaker|Outrights||" + "\n"
+  if len(games) > 0 {
+		tableData += FormatTournamentEvent(games[0]) 
+  }
 	return "Masters Tournament", GetHeader(models.Golf_masters_tournament_winner), CreateRoundRobinTable(string(models.Golf_masters_tournament_winner), tableData)
 }

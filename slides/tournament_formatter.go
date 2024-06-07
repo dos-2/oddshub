@@ -23,11 +23,12 @@ func FormatTournamentEvent(event models.Event) string {
   var bookmaker string = fmt.Sprintf("[#FFFFFF:#333333]%s",event.Bookmakers[0].Title)
   for _, playerOdd := range tournamentOdds {
     playerColors := getPlayerColors(event.SportKey, event.HomeTeam,) // later on for f1
+    var teamText string = fmt.Sprintf("[%s:%s]%s", playerColors.SecondaryColor, playerColors.PrimaryColor, "N/A") // later for f1
     var playerText string = fmt.Sprintf("[%s:%s]%s", playerColors.SecondaryColor, playerColors.PrimaryColor, playerOdd.Name)
     var outrightOdd string = formatMoneylineWithColor(playerOdd.Outright.Price) 
-    playerRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]TEAM|%s|%s|%s|%s|%s",
+    playerRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]%s|%s|%s|%s|%s|%s",
       playerColors.SecondaryColor, playerColors.PrimaryColor, commenceDate, playerColors.SecondaryColor, playerColors.PrimaryColor,
-      playerText, bookmaker, outrightOdd, "[#FFFFFF:#333333]N/A","[#FFFFFF:#333333]N/A")
+      teamText, playerText, bookmaker, outrightOdd, "[#FFFFFF:#333333]N/A","[#FFFFFF:#333333]N/A")
     rows = append(rows, playerRow)
   }
 

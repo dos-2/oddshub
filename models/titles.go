@@ -11,7 +11,7 @@ const (
 	Basketball_nba                 Title = "NBA Basketball"
 	Boxing                         Title = "Boxing"
   Cricket_ipl                    Title = "IPL Cricket"
-	Golf_masters_tournament_winner Title = "The Masters"
+	Golf_masters_tournament_winner Title = "Masters Tournament"
   Golf_pga_tournament_winner     Title = "PGA Tour Champonship"
 	Icehockey_nhl                  Title = "NHL Hockey"
 	Mma_mixed_martial_arts         Title = "MMA"
