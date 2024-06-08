@@ -22,7 +22,7 @@ const logo = `
 `
 
 const (
-	subtitle   = `oddshub - A terminal UI for sports betting nerds`
+	subtitle   = `oddshub - A terminal UI for sports betting programmers`
 	navigation = `[#FF8C00]Ctrl-N[#00FFFF]: Next slide    [#FF8C00]Ctrl-P[#00FFFF]: Previous slide    [#FF8C00]Ctrl-C[#00FFFF]: Exit`
 	mouse      = `[#00FFFF](or use your mouse)`
 )

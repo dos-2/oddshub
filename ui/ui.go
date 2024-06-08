@@ -79,12 +79,12 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 		if !exists || index == 0 {
 			eventList = []models.Event{}
 		}
-		title, header, primitive := slide.Content(eventList, nextSlide)
+		title, _, primitive := slide.Content(eventList, nextSlide)
 		var content tview.Primitive
 		// Add the header to the slide's content
 		content = tview.NewFlex().
 			SetDirection(tview.FlexRow).
-			AddItem(tview.NewTextView().SetText(header), 1, 1, false).
+			//AddItem(tview.NewTextView().SetDynamicColors(true).SetText(""), 1, 1, false).
 			AddItem(primitive, 0, 1, true)
 		if index == 0 {
 			content = primitive

@@ -1,9 +1,11 @@
 package slides
 
-import "oddshub/models"
+import (
+  "oddshub/models"
+)
 
 func GetHeader(sport models.Title) string {
-	header := "example header"
+	var header string = " [#00FF00]>[#00FFFF]>[#00FF00]>[#00FFFF][#00FF00]oddshub [#00FFFF]► [#FF8C00]Let us know what sports you want to see on here!"
 	//	switch sport {
 	//	case models.Americanfootball_nfl:
 	//		header = string(models.Tennis_atp_french_open)

@@ -31,5 +31,7 @@ func GetSlides() []Slide {
 		{Name: string(sports.Tennis_wta_french_open), Content: WomensFrenchOpenTennis},
 		{Name: string(sports.Golf_masters_tournament_winner), Content: MastersGolf},
     {Name: string(sports.Golf_pga_championship_winner), Content: PGAGolf},
+    {Name: string(sports.Soccer_brazil_campeonato), Content: BrazilCampeonato},
+    {Name: string(sports.Rugbyleague_nrl), Content: NRLRugby},
 	}
 }

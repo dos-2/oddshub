@@ -46,7 +46,7 @@ func fetchEventsMap(test bool, sport sports.Sport, apiKey string, wg *sync.WaitG
 		}
 	} else {
 		var url string
-		if sport == sports.Golf_masters_tournament_winner {
+		if sport == sports.Golf_masters_tournament_winner || sport == sports.Golf_pga_championship_winner {
 			url = fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=&oddsFormat=american&commenceTimeFrom=2024-06-04T00:00:00Z&commenceTimeTo=2024-09-29T00:00:00Z", sport, apiKey)
 		} else {
 			url = fmt.Sprintf("https://api.the-odds-api.com/v4/sports/%s/odds/?apiKey=%s&regions=us&markets=h2h,spreads,totals&oddsFormat=american&commenceTimeFrom=2024-06-04T00:00:00Z&commenceTimeTo=2024-09-29T00:00:00Z", sport, apiKey)
