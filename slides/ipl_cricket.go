@@ -2,15 +2,19 @@ package slides
 
 import (
 	"oddshub/models"
+	"strings"
 
 	"github.com/rivo/tview"
 )
 
-// FootballSlide creates a slide for football odds.
+// IPLCricket creates a slide for IPL cricket odds.
 func IPLCricket(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n"
+	var builder strings.Builder
+	builder.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total\n")
+
 	for _, game := range games {
-		tableData += FormatTeamEvent(game) 
+		builder.WriteString(FormatTeamEvent(game))
 	}
-	return "IPL", GetHeader(models.Cricket_ipl), CreateH2HTable(string(models.Cricket_ipl) , tableData)
+
+	return "IPL", GetHeader(models.Cricket_ipl), CreateH2HTable(string(models.Cricket_ipl), builder.String())
 }

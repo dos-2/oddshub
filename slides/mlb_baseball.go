@@ -2,15 +2,19 @@ package slides
 
 import (
 	"oddshub/models"
+	"strings"
 
 	"github.com/rivo/tview"
 )
 
-// MlbBaseball creates a slide for baseball odds.
+// MLBBaseball creates a slide for baseball odds.
 func MLBBaseball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
-	tableData := "Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total" + "\n"
+	var tableData strings.Builder
+	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total\n")
+
 	for _, game := range games {
-		tableData += FormatTeamEvent(game)
+		tableData.WriteString(FormatTeamEvent(game))
 	}
-	return "MLB", GetHeader(models.Baseball_mlb), CreateH2HTable("MLB Baseball", tableData)
+
+	return "MLB", GetHeader(models.Baseball_mlb), CreateH2HTable("MLB Baseball", tableData.String())
 }
