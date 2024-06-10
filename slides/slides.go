@@ -1,6 +1,7 @@
 package slides
 
 import (
+	"oddshub/API"
 	"oddshub/models"
 	"oddshub/sports"
 
@@ -11,6 +12,28 @@ import (
 type Slide struct {
 	Name    string // Name of the slide
 	Content func(games []models.Event, nextSlide func()) (title string, header string, content tview.Primitive)
+}
+
+// GetSlides returns a slice of slides for the presentation.
+func GetActiveSlides(test bool) ([]Slide, error) {
+	// Retrieve active sports
+	activeSportsMap, err := API.FetchActiveSports(true)
+	if err != nil {
+		return nil, err
+	}
+
+	// Filter slides based on active sports
+	var activeSlides []Slide
+  activeSlides = append(activeSlides, Slide{Name: "Cover", Content: Cover})
+
+	allSlides := GetSlides() // Define a function to get all slides
+	for _, slide := range allSlides {
+	  if _, exists := activeSportsMap[slide.Name]; exists {
+      activeSlides = append(activeSlides, slide)
+    }
+  }
+
+	return activeSlides, nil
 }
 
 // GetSlides returns a slice of slides for the presentation.

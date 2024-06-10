@@ -26,7 +26,10 @@ func RunApp() error {
 	// Load sports events
 	events := loadEvents()
 	// Load slides
-	presentationSlides := slides.GetSlides()
+	presentationSlides, err := slides.GetActiveSlides(true)
+  if err != nil {
+    fmt.Print("Something is wrong with getting active slides.")
+  }
 
 	pages := tview.NewPages()
 	// Info text view

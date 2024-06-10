@@ -1,0 +1,370 @@
+[
+  {
+    "key": "americanfootball_cfl",
+    "group": "American Football",
+    "title": "CFL",
+    "description": "Canadian Football League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "americanfootball_ncaaf",
+    "group": "American Football",
+    "title": "NCAAF",
+    "description": "US College Football",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "americanfootball_ncaaf_championship_winner",
+    "group": "American Football",
+    "title": "NCAAF Championship Winner",
+    "description": "US College Football Championship Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "americanfootball_nfl",
+    "group": "American Football",
+    "title": "NFL",
+    "description": "US Football",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "americanfootball_nfl_super_bowl_winner",
+    "group": "American Football",
+    "title": "NFL Super Bowl Winner",
+    "description": "Super Bowl Winner 2024/2025",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "americanfootball_ufl",
+    "group": "American Football",
+    "title": "UFL",
+    "description": "United Football League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "aussierules_afl",
+    "group": "Aussie Rules",
+    "title": "AFL",
+    "description": "Aussie Football",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "baseball_kbo",
+    "group": "Baseball",
+    "title": "KBO",
+    "description": "KBO League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "baseball_milb",
+    "group": "Baseball",
+    "title": "MiLB",
+    "description": "Minor League Baseball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "baseball_mlb",
+    "group": "Baseball",
+    "title": "MLB",
+    "description": "Major League Baseball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "baseball_mlb_world_series_winner",
+    "group": "Baseball",
+    "title": "MLB World Series Winner",
+    "description": "World Series Winner 2024",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "baseball_ncaa",
+    "group": "Baseball",
+    "title": "NCAA Baseball",
+    "description": "US College Baseball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "baseball_npb",
+    "group": "Baseball",
+    "title": "NPB",
+    "description": "Nippon Professional Baseball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "basketball_nba",
+    "group": "Basketball",
+    "title": "NBA",
+    "description": "US Basketball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "basketball_nba_championship_winner",
+    "group": "Basketball",
+    "title": "NBA Championship Winner",
+    "description": "Championship Winner 2024/2025",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "basketball_ncaab_championship_winner",
+    "group": "Basketball",
+    "title": "NCAAB Championship Winner",
+    "description": "US College Basketball Championship Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "basketball_wnba",
+    "group": "Basketball",
+    "title": "WNBA",
+    "description": "US Basketball",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "boxing_boxing",
+    "group": "Boxing",
+    "title": "Boxing",
+    "description": "Boxing Bouts",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "cricket_t20_blast",
+    "group": "Cricket",
+    "title": "T20 Blast",
+    "description": "T20 Blast",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "golf_masters_tournament_winner",
+    "group": "Golf",
+    "title": "Masters Tournament Winner",
+    "description": "2025 Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "golf_pga_championship_winner",
+    "group": "Golf",
+    "title": "PGA Championship Winner",
+    "description": "2025 Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "golf_the_open_championship_winner",
+    "group": "Golf",
+    "title": "The Open Winner",
+    "description": "2024 Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "golf_us_open_winner",
+    "group": "Golf",
+    "title": "US Open Winner",
+    "description": "2024 Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "icehockey_nhl",
+    "group": "Ice Hockey",
+    "title": "NHL",
+    "description": "US Ice Hockey",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "icehockey_nhl_championship_winner",
+    "group": "Ice Hockey",
+    "title": "NHL Championship Winner",
+    "description": "Stanley Cup Winner 2023/2024",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "lacrosse_pll",
+    "group": "Lacrosse",
+    "title": "PLL",
+    "description": "Premier Lacrosse League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "mma_mixed_martial_arts",
+    "group": "Mixed Martial Arts",
+    "title": "MMA",
+    "description": "Mixed Martial Arts",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "politics_us_presidential_election_winner",
+    "group": "Politics",
+    "title": "US Presidential Elections Winner",
+    "description": "2024 US Presidential Election Winner",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "rugbyleague_nrl",
+    "group": "Rugby League",
+    "title": "NRL",
+    "description": "Aussie Rugby League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_argentina_primera_division",
+    "group": "Soccer",
+    "title": "Primera División - Argentina",
+    "description": "Argentine Primera División",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_brazil_campeonato",
+    "group": "Soccer",
+    "title": "Brazil Série A",
+    "description": "Brasileirão Série A",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_brazil_serie_b",
+    "group": "Soccer",
+    "title": "Brazil Série B",
+    "description": "Campeonato Brasileiro Série B",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_chile_campeonato",
+    "group": "Soccer",
+    "title": "Primera División - Chile",
+    "description": "Campeonato Chileno",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_china_superleague",
+    "group": "Soccer",
+    "title": "Super League - China",
+    "description": "Chinese Soccer",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_conmebol_copa_america",
+    "group": "Soccer",
+    "title": "Copa América",
+    "description": "CONMEBOL Copa América",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_conmebol_copa_libertadores",
+    "group": "Soccer",
+    "title": "Copa Libertadores",
+    "description": "CONMEBOL Copa Libertadores",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_fifa_world_cup_winner",
+    "group": "Soccer",
+    "title": "FIFA World Cup Winner",
+    "description": "FIFA World Cup Winner 2026",
+    "active": true,
+    "has_outrights": true
+  },
+  {
+    "key": "soccer_finland_veikkausliiga",
+    "group": "Soccer",
+    "title": "Veikkausliiga - Finland",
+    "description": "Finnish  Soccer",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_japan_j_league",
+    "group": "Soccer",
+    "title": "J League",
+    "description": "Japan Soccer League",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_league_of_ireland",
+    "group": "Soccer",
+    "title": "League of Ireland",
+    "description": "Airtricity League Premier Division",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_spain_segunda_division",
+    "group": "Soccer",
+    "title": "La Liga 2 - Spain",
+    "description": "Spanish Soccer",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_sweden_allsvenskan",
+    "group": "Soccer",
+    "title": "Allsvenskan - Sweden",
+    "description": "Swedish Soccer",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_uefa_european_championship",
+    "group": "Soccer",
+    "title": "UEFA Euro 2024",
+    "description": "UEFA European Championship",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "soccer_usa_mls",
+    "group": "Soccer",
+    "title": "MLS",
+    "description": "Major League Soccer",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "tennis_atp_french_open",
+    "group": "Tennis",
+    "title": "ATP French Open",
+    "description": "Men's Singles",
+    "active": true,
+    "has_outrights": false
+  },
+  {
+    "key": "tennis_wta_french_open",
+    "group": "Tennis",
+    "title": "WTA French Open",
+    "description": "Women's Singles",
+    "active": true,
+    "has_outrights": false
+  }
+]
