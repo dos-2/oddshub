@@ -1,16 +1,17 @@
 package API
 
 import (
-  "encoding/json"
-  "fmt"
-  "io"
-  "log"
-  "net/http"
-  "oddshub/models"
-  "oddshub/sports"
-  "os"
-  "sync"
-  "github.com/joho/godotenv"
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"oddshub/models"
+	"oddshub/sports"
+	"os"
+	"sync"
+
+	"github.com/joho/godotenv"
 )
 
 func getAPIKEY() string {
@@ -148,6 +149,21 @@ func GetAllUpcomingEventsMap(test bool) map[string][]models.Event {
   var mu sync.Mutex
 
   for _, sport := range sports.AllSports() {
+    wg.Add(1)
+    go fetchEventsMap(test, sport, apiKey, &wg, &mu, eventMap)
+  }
+
+  wg.Wait()
+  return eventMap
+}
+
+
+func GetAllActiveEventsMap(test bool, activeSports []sports.Sport) map[string][]models.Event {
+  apiKey := getAPIKEY()
+  eventMap := make(map[string][]models.Event)
+  var wg sync.WaitGroup
+  var mu sync.Mutex
+  for _, sport := range activeSports {
     wg.Add(1)
     go fetchEventsMap(test, sport, apiKey, &wg, &mu, eventMap)
   }

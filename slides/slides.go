@@ -15,25 +15,27 @@ type Slide struct {
 }
 
 // GetSlides returns a slice of slides for the presentation.
-func GetActiveSlides(test bool) ([]Slide, error) {
+func GetActiveSlides(test bool) ([]Slide,[]sports.Sport, error) {
 	// Retrieve active sports
 	activeSportsMap, err := API.FetchActiveSports(true)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	// Filter slides based on active sports
 	var activeSlides []Slide
+  var activeSports []sports.Sport
   activeSlides = append(activeSlides, Slide{Name: "Cover", Content: Cover})
 
 	allSlides := GetSlides() // Define a function to get all slides
 	for _, slide := range allSlides {
 	  if _, exists := activeSportsMap[slide.Name]; exists {
       activeSlides = append(activeSlides, slide)
+      activeSports = append(activeSports, sports.Sport(slide.Name))
     }
   }
 
-	return activeSlides, nil
+	return activeSlides, activeSports, nil 
 }
 
 // GetSlides returns a slice of slides for the presentation.
@@ -56,5 +58,9 @@ func GetSlides() []Slide {
     {Name: string(sports.Golf_pga_championship_winner), Content: PGAGolf},
     {Name: string(sports.Soccer_brazil_campeonato), Content: BrazilCampeonato},
     {Name: string(sports.Rugbyleague_nrl), Content: NRLRugby},
+    {Name: string(sports.Cricket_ipl), Content: IPLCricket},
+    {Name: string(sports.Soccer_uefa_europa_league), Content: UEFASoccer},
+    {Name: string(sports.Soccer_epl), Content: EPLSoccer},
+    {Name: string(sports.Soccer_spain_la_liga), Content: LaLigaSoccer},
 	}
 }

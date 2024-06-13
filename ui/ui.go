@@ -12,6 +12,7 @@ import (
 	"oddshub/API"
 	"oddshub/models"
 	"oddshub/slides"
+	"oddshub/sports"
 	"strconv"
 
 	"github.com/gdamore/tcell/v2"
@@ -23,13 +24,14 @@ type Slide func(nextSlide func()) (title string, content tview.Primitive)
 var app = tview.NewApplication()
 
 func RunApp() error {
-	// Load sports events
-	events := loadEvents()
 	// Load slides
-	presentationSlides, err := slides.GetActiveSlides(true)
+	presentationSlides, activeSports, err := slides.GetActiveSlides(true)
   if err != nil {
     fmt.Print("Something is wrong with getting active slides.")
   }
+
+	// Load sports events
+	events := loadEvents(activeSports)
 
 	pages := tview.NewPages()
 	// Info text view
@@ -111,8 +113,8 @@ func setupNavigationShortcuts(app *tview.Application, previousSlide func(), next
 	})
 }
 
-func loadEvents() map[string][]models.Event {
-	events := API.GetAllUpcomingEventsMap(true)
+func loadEvents(activeSports []sports.Sport) map[string][]models.Event {
+	events := API.GetAllActiveEventsMap(true, activeSports)
 	if events == nil {
 		panic("Failed to load events")
 	}
