@@ -9,10 +9,10 @@ package ui
 
 import (
 	"fmt"
-	"oddshub/API"
+	"log"
+	"oddshub/endpoints"
 	"oddshub/models"
 	"oddshub/slides"
-	"oddshub/sports"
 	"strconv"
 
 	"github.com/gdamore/tcell/v2"
@@ -24,11 +24,13 @@ type Slide func(nextSlide func()) (title string, content tview.Primitive)
 var app = tview.NewApplication()
 
 func RunApp() error {
+	// Load active sports
+	activeSportsMap, activeSports := loadActiveSports()
 	// Load slides
-	presentationSlides, activeSports, err := slides.GetActiveSlides(true)
-  if err != nil {
-    fmt.Print("Something is wrong with getting active slides.")
-  }
+	presentationSlides, err := slides.GetActiveSlides(activeSportsMap)
+	if err != nil {
+		log.Print("Something is wrong with getting active slides.")
+	}
 
 	// Load sports events
 	events := loadEvents(activeSports)
@@ -84,12 +86,11 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 		if !exists || index == 0 {
 			eventList = []models.Event{}
 		}
+
 		title, _, primitive := slide.Content(eventList, nextSlide)
 		var content tview.Primitive
-		// Add the header to the slide's content
 		content = tview.NewFlex().
 			SetDirection(tview.FlexRow).
-			//AddItem(tview.NewTextView().SetDynamicColors(true).SetText(""), 1, 1, false).
 			AddItem(primitive, 0, 1, true)
 		if index == 0 {
 			content = primitive
@@ -113,10 +114,18 @@ func setupNavigationShortcuts(app *tview.Application, previousSlide func(), next
 	})
 }
 
-func loadEvents(activeSports []sports.Sport) map[string][]models.Event {
-	events := API.GetAllActiveEventsMap(true, activeSports)
+func loadEvents(activeSports []models.ActiveSport) map[string][]models.Event {
+	events := endpoints.GetSportsOdds(activeSports)
 	if events == nil {
-		panic("Failed to load events")
+		events = make(map[string][]models.Event)
 	}
 	return events
+}
+func loadActiveSports() (map[string]models.ActiveSport, []models.ActiveSport) {
+	activeSportsMap, activeSportsList, err := endpoints.FetchActiveSports()
+	if err != nil {
+		activeSportsMap = make(map[string]models.ActiveSport)
+		activeSportsList = []models.ActiveSport{}
+	}
+	return activeSportsMap, activeSportsList
 }

@@ -47,5 +47,15 @@ func AllSports() []Sport {
 		Soccer_spain_la_liga,
 		Soccer_uefa_europa_league,
 		Soccer_usa_mls,
-  }
+	}
+}
+
+// GetSportsMap returns a map where the keys are the string representations
+// of the sports and the values are the corresponding Sport constants.
+func GetSportsMap() map[string]Sport {
+	sportsMap := make(map[string]Sport)
+	for _, sport := range AllSports() {
+		sportsMap[string(sport)] = sport
+	}
+	return sportsMap
 }
