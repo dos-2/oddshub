@@ -14,12 +14,11 @@ import (
 	"oddshub/models"
 	"oddshub/slides"
 	"strconv"
+	"time"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
-
-type Slide func(nextSlide func()) (title string, content tview.Primitive)
 
 var app = tview.NewApplication()
 
@@ -115,12 +114,19 @@ func setupNavigationShortcuts(app *tview.Application, previousSlide func(), next
 }
 
 func loadEvents(activeSports []models.ActiveSport) map[string][]models.Event {
-	events := endpoints.GetSportsOdds(activeSports)
-	if events == nil {
-		events = make(map[string][]models.Event)
+	eventsChan := make(chan map[string][]models.Event)
+	go func() {
+		eventsChan <- endpoints.GetSportsOdds(activeSports)
+	}()
+
+	select {
+	case events := <-eventsChan:
+		return events
+	case <-time.After(5 * time.Second): // Timeout example
+		return make(map[string][]models.Event)
 	}
-	return events
 }
+
 func loadActiveSports() (map[string]models.ActiveSport, []models.ActiveSport) {
 	activeSportsMap, activeSportsList, err := endpoints.FetchActiveSports()
 	if err != nil {

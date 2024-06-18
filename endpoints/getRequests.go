@@ -8,8 +8,16 @@ import (
 	"net/http"
 	"oddshub/models"
 	"oddshub/sports"
+	"sort"
 	"sync"
 )
+
+type Events []models.Event
+
+// // Implementing sort.Interface for Events based on CommenceTime.
+func (e Events) Len() int           { return len(e) }
+func (e Events) Swap(i, j int)      { e[i], e[j] = e[j], e[i] }
+func (e Events) Less(i, j int) bool { return e[i].CommenceTime.Before(e[j].CommenceTime) }
 
 func GetSportsOdds(activeSports []models.ActiveSport) map[string][]models.Event {
 	eventsMap := make(map[string][]models.Event)
@@ -53,6 +61,8 @@ func fetchEventsMap(sport sports.Sport, wg *sync.WaitGroup, mu *sync.Mutex, even
 	if events == nil {
 		return
 	}
+	// sort by commence time function
+	sort.Sort(Events(events))
 	mu.Lock()
 	eventsMap[string(sport)] = events
 	mu.Unlock()

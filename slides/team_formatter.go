@@ -54,17 +54,17 @@ func FormatTeamEvent(event models.Event) string {
 		var awayMoney string = "[#FFFFFF:#333333]N/A"
 
 		if totalsExists {
-			overOdds = fmt.Sprintf("[%s:%s]O %s %s", "#FFFFFF", "#333333", overPoints, 
+			overOdds = fmt.Sprintf("[%s:%s]O %s %s", "#FFFFFF", "#333333", overPoints,
 				formatMoneylineWithColor(teamOdds.HomeOdds.Totals.OverPrice))
 			awayOdds = fmt.Sprintf("[%s:%s]U %s %s", "#FFFFFF", "#333333", underPoints,
 				formatMoneylineWithColor(teamOdds.AwayOdds.Totals.UnderPrice))
 		}
 
 		if spreadExists {
-			homeSpread = formatWithSign(teamOdds.HomeOdds.Spread.Point) + " " + 
-			formatMoneylineWithColor(teamOdds.HomeOdds.Spread.Price)
-			awaySpread = formatWithSign(teamOdds.AwayOdds.Spread.Point) + " " +  
-			formatMoneylineWithColor(teamOdds.AwayOdds.Spread.Price) 
+			homeSpread = formatWithSign(teamOdds.HomeOdds.Spread.Point) + " " +
+				formatMoneylineWithColor(teamOdds.HomeOdds.Spread.Price)
+			awaySpread = formatWithSign(teamOdds.AwayOdds.Spread.Point) + " " +
+				formatMoneylineWithColor(teamOdds.AwayOdds.Spread.Price)
 		}
 
 		if moneylineExists {
@@ -75,7 +75,7 @@ func FormatTeamEvent(event models.Event) string {
 		// Format home team data with spread first
 		homeRow := fmt.Sprintf("[%s:%s]%s|[%s:%s]HOME|%s|%s|%s|%s|%s\n",
 			homeColors.SecondaryColor, homeColors.PrimaryColor, commenceDate, homeColors.SecondaryColor, homeColors.PrimaryColor,
-			homeTeamText, bookmakerName, homeSpread, homeMoney , overOdds)
+			homeTeamText, bookmakerName, homeSpread, homeMoney, overOdds)
 		builder.WriteString(homeRow)
 
 		// Format away team data with spread first
