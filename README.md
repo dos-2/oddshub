@@ -30,7 +30,7 @@ Desktop aesthetic
 - **Odds Display**: Displays moneyline, spreads, totals, and outrights for detailed betting insights.
 - **Team Colors**: Custom color coding for each team or outcome, enhancing visual clarity.
 - **Mouse Support**: Enables intuitive navigation and interaction within the terminal interface.
-- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) for real-time data updates.
+- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for data.
 
 ## Contributing
 For contributions simply fork, create a new branch, and submit for a PR review.
