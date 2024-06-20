@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package models
 
 type Title string
@@ -10,12 +14,12 @@ const (
 	Basketball_ncaa                Title = "NCAA Basketball"
 	Basketball_nba                 Title = "NBA Basketball"
 	Boxing                         Title = "Boxing"
-  Cricket_ipl                    Title = "IPL Cricket"
+	Cricket_ipl                    Title = "IPL Cricket"
 	Golf_masters_tournament_winner Title = "Masters Tournament"
-  Golf_pga_tournament_winner     Title = "PGA Tour Champonship"
+	Golf_pga_tournament_winner     Title = "PGA Tour Champonship"
 	Icehockey_nhl                  Title = "NHL Hockey"
 	Mma_mixed_martial_arts         Title = "MMA"
-  Rugby_irl                      Title = "NRL Rugby"
+	Rugby_irl                      Title = "NRL Rugby"
 	Soccer_brazil_campeonato       Title = "Brazil Campeonato"
 	Soccer_epl                     Title = "English Premier League"
 	Soccer_spain_la_liga           Title = "Spain La Liga"

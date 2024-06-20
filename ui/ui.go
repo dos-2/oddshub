@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
+/*
 
 # Navigation
   - Ctrl-N: Jump to next slide

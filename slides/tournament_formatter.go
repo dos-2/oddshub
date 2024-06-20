@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package slides
 
 import (
@@ -5,7 +9,7 @@ import (
 	"oddshub/colors"
 	"oddshub/models"
 	"strings"
-//	"time"
+	// "time"
 )
 
 // FormatTournamentEvent formats a single event into a table-ready string.
@@ -14,12 +18,12 @@ func FormatTournamentEvent(event models.Event) string {
 
 	tournamentOdds := ExtractTournamentOdds(event)
 
-//	// Load time location once
-//	loc, err := time.LoadLocation("America/New_York")
-//	if err != nil {
-//		fmt.Println("Error loading time location:", err)
-//		return ""
-//	}
+	//	// Load time location once
+	//	loc, err := time.LoadLocation("America/New_York")
+	//	if err != nil {
+	//		fmt.Println("Error loading time location:", err)
+	//		return ""
+	//	}
 
 	// Format commencement time once
 	commenceDate := event.CommenceTime.Format("01/02/2006")
@@ -30,7 +34,7 @@ func FormatTournamentEvent(event models.Event) string {
 
 	// Iterate over player odds
 	for _, playerOdd := range tournamentOdds {
-		playerColors := getPlayerColors(event.SportKey, event.HomeTeam) // Adjusted for F1 or future use
+		playerColors := getPlayerColors(event.SportKey, event.HomeTeam)                                     // Adjusted for F1 or future use
 		teamText := fmt.Sprintf("[%s:%s]%s", playerColors.SecondaryColor, playerColors.PrimaryColor, "N/A") // Adjusted for F1 or future use
 		playerText := fmt.Sprintf("[%s:%s]%s", playerColors.SecondaryColor, playerColors.PrimaryColor, playerOdd.Name)
 		outrightOdd := formatMoneylineWithColor(playerOdd.Outright.Price)
@@ -59,20 +63,20 @@ func ExtractTournamentOdds(event models.Event) []models.PlayerOdds {
 			Name: outcome.Name,
 			Outright: models.Outright{
 				Price: outcome.Price,
-      }})
-  }
-  return tournamentOdds
+			}})
+	}
+	return tournamentOdds
 }
 
 // getPlayerColors retrieves the team colors for a player or team.
 func getPlayerColors(sport string, team string) models.TeamColors {
-  colorsMap := colors.ColorsMap[sport]
-  playerColors, exists := colorsMap[team]
-  if !exists {
-    playerColors = models.TeamColors{
-      PrimaryColor:   "#333333",
-      SecondaryColor: "#FFFFFF",
-    }
-  }
-  return playerColors
+	colorsMap := colors.ColorsMap[sport]
+	playerColors, exists := colorsMap[team]
+	if !exists {
+		playerColors = models.TeamColors{
+			PrimaryColor:   "#333333",
+			SecondaryColor: "#FFFFFF",
+		}
+	}
+	return playerColors
 }

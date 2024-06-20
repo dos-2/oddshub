@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package slides
 
 import (
 	"oddshub/models"
-  "strings"
+	"strings"
+
 	"github.com/rivo/tview"
 )
 

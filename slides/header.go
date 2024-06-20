@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package slides
 
 import (
-  "oddshub/models"
+	"oddshub/models"
 )
 
 func GetHeader(sport models.Title) string {

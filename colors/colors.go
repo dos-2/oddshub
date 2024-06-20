@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package colors
 
 import (
@@ -18,14 +22,14 @@ var ColorsMap = map[string]map[string]models.TeamColors{
 	string(sports.Baseball_mlb):                   MLBTeamColorMap,
 	string(sports.Baseball_ncaa):                  NCAATeamColorMap,
 	string(sports.Basketball_ncaa):                NCAATeamColorMap,
-	string(sports.Boxing): {},
-  string(sports.Soccer_brazil_campeonato):       CampeonatoTeamColorMap,
-  string(sports.Soccer_epl):                     EuroTeamColorMap,
-  string(sports.Cricket_ipl):                    IPLTeamColorMap,
-  string(sports.Soccer_spain_la_liga):           EuroTeamColorMap,
-  string(sports.Tennis_atp_wimbledon):           {},
-  string(sports.Rugbyleague_nrl):                NRLTeamColorMap,
-  string(sports.Golf_pga_championship_winner):   {},
-  string(sports.Soccer_uefa_europa_league):      EuroTeamColorMap,
-  string(sports.Tennis_wta_wimbledon):           {},
+	string(sports.Boxing):                         {},
+	string(sports.Soccer_brazil_campeonato):       CampeonatoTeamColorMap,
+	string(sports.Soccer_epl):                     EuroTeamColorMap,
+	string(sports.Cricket_ipl):                    IPLTeamColorMap,
+	string(sports.Soccer_spain_la_liga):           EuroTeamColorMap,
+	string(sports.Tennis_atp_wimbledon):           {},
+	string(sports.Rugbyleague_nrl):                NRLTeamColorMap,
+	string(sports.Golf_pga_championship_winner):   {},
+	string(sports.Soccer_uefa_europa_league):      EuroTeamColorMap,
+	string(sports.Tennis_wta_wimbledon):           {},
 }

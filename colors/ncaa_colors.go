@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package colors
 
 import "oddshub/models"
@@ -42,7 +46,7 @@ var NCAATeamColorMap = map[string]models.TeamColors{
 	"Florida Atlantic Owls":               {PrimaryColor: "#00519B", SecondaryColor: "#d21034"},
 	"Florida Gators":                      {PrimaryColor: "#0021A5", SecondaryColor: "#FA4616"},
 	"Florida State Seminoles":             {PrimaryColor: "#782F40", SecondaryColor: "#CEB888"},
-	"Florida St Seminoles":             {PrimaryColor: "#782F40", SecondaryColor: "#CEB888"},
+	"Florida St Seminoles":                {PrimaryColor: "#782F40", SecondaryColor: "#CEB888"},
 	"Fresno State Bulldogs":               {PrimaryColor: "#0033A0", SecondaryColor: "#FDB515"},
 	"Georgia Bulldogs":                    {PrimaryColor: "#BA0C2F", SecondaryColor: "#000000"},
 	"Georgia Southern Eagles":             {PrimaryColor: "#003DA5", SecondaryColor: "#C5B783"},
