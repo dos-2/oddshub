@@ -1,5 +1,4 @@
 /*
-A presentation of the UI package, implemented with tview.
 
 # Navigation
   - Ctrl-N: Jump to next slide
