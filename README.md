@@ -1,6 +1,6 @@
 <h3 align="center">
   <br />
-  <img src="assets/oddshub.png" alt="logo" width="400" />
+  <img src="assets/oddshub.png" alt="logo" width="600" />
   <br />
   <br />
   <br />
@@ -21,14 +21,16 @@ This app is inspired by [`htop`](https://en.wikipedia.org/wiki/Htop) and [`coint
 
 Desktop aesthetic
 
-<img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/desktop.png" alt="oddshub-on-desktop" width="880" />
+<img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/cover-view.png" alt="oddshub-on-desktop" width="880" />
+
+<img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/scores-view.png" alt="oddshub-on-desktop" width="880" />
 
 ## Features
 
 - **Odds Display**: Displays moneyline, spreads, totals, and outrights for detailed betting insights.
 - **Team Colors**: Custom color coding for each team or outcome, enhancing visual clarity.
 - **Mouse Support**: Enables intuitive navigation and interaction within the terminal interface.
-- **API Integration**: Utilizes odds API for real-time data updates.
+- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) for real-time data updates.
 
 ## Contributing
 For contributions simply fork, create a new branch, and submit for a PR review.
