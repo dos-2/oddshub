@@ -5,7 +5,7 @@
 package slides
 
 import (
-	"oddshub/models"
+	"github.com/dos-2/oddshub/models"
 )
 
 func GetHeader(sport models.Title) string {

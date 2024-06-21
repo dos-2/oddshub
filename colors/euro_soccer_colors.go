@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var EuroTeamColorMap = map[string]models.TeamColors{
 	// EPL Teams

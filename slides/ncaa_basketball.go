@@ -5,8 +5,9 @@
 package slides
 
 import (
-	"oddshub/models"
 	"strings"
+
+	"github.com/dos-2/oddshub/models"
 
 	"github.com/rivo/tview"
 )

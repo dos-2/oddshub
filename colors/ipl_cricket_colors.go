@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var IPLTeamColorMap = map[string]models.TeamColors{
 	"Chennai Super Kings":         {PrimaryColor: "#FFD700", SecondaryColor: "#1A191A"},

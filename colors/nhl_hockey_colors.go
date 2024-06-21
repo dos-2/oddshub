@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var NHLTeamColorMap = map[string]models.TeamColors{
 	"Anaheim Ducks":         {PrimaryColor: "#F95602", SecondaryColor: "#000000"},

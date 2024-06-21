@@ -10,10 +10,11 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"oddshub/models"
-	"oddshub/sports"
 	"sort"
 	"sync"
+
+	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 )
 
 type Events []models.Event

@@ -13,11 +13,13 @@ package ui
 import (
 	"fmt"
 	"log"
-	"oddshub/endpoints"
-	"oddshub/models"
-	"oddshub/slides"
+
 	"strconv"
 	"time"
+
+	"github.com/dos-2/oddshub/endpoints"
+	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/slides"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"

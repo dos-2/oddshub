@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var NCAATeamColorMap = map[string]models.TeamColors{
 	"Air Force Falcons":                   {PrimaryColor: "#004A7F", SecondaryColor: "#FFFFFF"},

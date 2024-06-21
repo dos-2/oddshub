@@ -5,8 +5,8 @@
 package colors
 
 import (
-	"oddshub/models"
-	"oddshub/sports"
+	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 )
 
 var ColorsMap = map[string]map[string]models.TeamColors{

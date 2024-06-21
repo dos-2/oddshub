@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var CampeonatoTeamColorMap = map[string]models.TeamColors{
 	"América Mineiro":      {PrimaryColor: "#2E8B57", SecondaryColor: "#FFFFFF"},

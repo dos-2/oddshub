@@ -6,10 +6,10 @@ package slides
 
 import (
 	"fmt"
-	"oddshub/colors"
-	"oddshub/models"
 	"strings"
-	// "time"
+
+	"github.com/dos-2/oddshub/colors"
+	"github.com/dos-2/oddshub/models"
 )
 
 // FormatTournamentEvent formats a single event into a table-ready string.
@@ -18,16 +18,8 @@ func FormatTournamentEvent(event models.Event) string {
 
 	tournamentOdds := ExtractTournamentOdds(event)
 
-	//	// Load time location once
-	//	loc, err := time.LoadLocation("America/New_York")
-	//	if err != nil {
-	//		fmt.Println("Error loading time location:", err)
-	//		return ""
-	//	}
-
 	// Format commencement time once
 	commenceDate := event.CommenceTime.Format("01/02/2006")
-	//commenceTime := event.CommenceTime.In(loc).Format("03:04 PM") + " ET"
 
 	// Format bookmaker once
 	bookmaker := fmt.Sprintf("[#FFFFFF:#333333]%s", event.Bookmakers[0].Title)

@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var NFLTeamColorMap = map[string]models.TeamColors{
 	"Arizona Cardinals":     {PrimaryColor: "#97233F", SecondaryColor: "#000000"},

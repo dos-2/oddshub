@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	"oddshub/ui"
+
+	"github.com/dos-2/oddshub/ui"
 )
 
 func main() {

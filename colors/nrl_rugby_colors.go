@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var NRLTeamColorMap = map[string]models.TeamColors{
 	"Brisbane Broncos":             {PrimaryColor: "#FF6600", SecondaryColor: "#FFFFFF"},

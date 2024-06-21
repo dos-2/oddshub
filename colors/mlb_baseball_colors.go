@@ -4,7 +4,7 @@
  */
 package colors
 
-import "oddshub/models"
+import "github.com/dos-2/oddshub/models"
 
 var MLBTeamColorMap = map[string]models.TeamColors{
 	"Arizona Diamondbacks":  {PrimaryColor: "#A71930", SecondaryColor: "#E3D4AD"},

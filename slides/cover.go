@@ -6,8 +6,9 @@ package slides
 
 import (
 	"fmt"
-	"oddshub/models"
 	"strings"
+
+	"github.com/dos-2/oddshub/models"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"

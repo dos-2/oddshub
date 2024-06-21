@@ -6,10 +6,11 @@ package slides
 
 import (
 	"fmt"
-	"oddshub/colors"
-	"oddshub/models"
 	"strings"
 	"time"
+
+	"github.com/dos-2/oddshub/colors"
+	"github.com/dos-2/oddshub/models"
 )
 
 // FormatTeamEvent formats a single event into a table-ready string.

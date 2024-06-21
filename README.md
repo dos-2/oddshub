@@ -30,9 +30,56 @@ Desktop aesthetic
 - **Odds Display**: Displays moneyline, spreads, totals, and outrights for detailed betting insights.
 - **Team Colors**: Custom color coding for each team or outcome, enhancing visual clarity.
 - **Mouse Support**: Enables intuitive navigation and interaction within the terminal interface.
-- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for data.
+- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for sports odds.
+- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for sports odds.
+
+## Supported Sports and Leagues
+
+### Football
+- **NFL**
+- **NCAA**
+
+### Basketball
+- **NBA**
+- **NCAA**
+
+### Baseball
+- **MLB**
+- **NCAA**
+
+### Soccer
+- **MLS**
+- **Brazil Campeonato**
+- **Premier League**
+- **La Liga**
+- **UEFA**
+
+### Hockey
+- **NHL**
+
+### Golf
+- **PGA Tournament**
+- **Masters Tournament**
+
+### Tennis
+- **Mens & Womens Wimbledon**
+- **Mens & Womens French Open**
+
+### Mixed Martial Arts
+- **All major leagues supported**
+
+### Boxing
+- **All major leagues supported** 
+
+### Cricket
+- **IPL**
+
+### Rugby
+- **NRL**
+
 
 ## Contributing
+
 For contributions simply fork, create a new branch, and submit for a PR review.
 
 ## Social
