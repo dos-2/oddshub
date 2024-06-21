@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 dos-2
+ * All rights reserved.
+ */
 package colors
 
 import "github.com/dos-2/oddshub/models"

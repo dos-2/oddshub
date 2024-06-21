@@ -3,11 +3,11 @@
  * All rights reserved.
  */
 /*
-
 # Navigation
   - Ctrl-N: Jump to next slide
   - Ctrl-P: Jump to previous slide
 */
+
 package ui
 
 import (

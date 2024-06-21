@@ -4,9 +4,7 @@
  */
 package colors
 
-import (
-	"github.com/dos-2/oddshub/models"
-)
+import "github.com/dos-2/oddshub/models"
 
 var MLSTeamColorMap = map[string]models.TeamColors{
 	"Atlanta United FC":      {PrimaryColor: "#A2191F", SecondaryColor: "#000000"},

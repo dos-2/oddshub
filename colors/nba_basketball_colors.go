@@ -4,9 +4,7 @@
  */
 package colors
 
-import (
-	"github.com/dos-2/oddshub/models"
-)
+import "github.com/dos-2/oddshub/models"
 
 var NBATeamColorMap = map[string]models.TeamColors{
 	"Atlanta Hawks":          {PrimaryColor: "#E03A3E", SecondaryColor: "#C1D32F"},

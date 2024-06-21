@@ -27,7 +27,7 @@ Desktop aesthetic
 <img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/scores-view.png" alt="oddshub-on-desktop" width="880" />
 
 ## Installation
-Make sure to have go (1.17+) installed, then do:
+Make sure to have [`go`](https://go.dev) (1.17+) installed, then do:
 
 ```go install github.com/dos-2/oddshub@latest```
 
