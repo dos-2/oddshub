@@ -49,10 +49,12 @@ Desktop aesthetic
 
 ### Soccer
 - **MLS**
+- **Copa America**
+- **UEFA Euro Championship**
+- **UEFA Champions League**
 - **Brazil Campeonato**
 - **Premier League**
 - **La Liga**
-- **UEFA**
 
 ### Hockey
 - **NHL**
@@ -73,10 +75,6 @@ Desktop aesthetic
 
 ### Cricket
 - **IPL**
-
-### Rugby
-- **NRL**
-
 
 ## Contributing
 
