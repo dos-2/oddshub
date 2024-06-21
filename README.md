@@ -31,7 +31,6 @@ Desktop aesthetic
 - **Team Colors**: Custom color coding for each team or outcome, enhancing visual clarity.
 - **Mouse Support**: Enables intuitive navigation and interaction within the terminal interface.
 - **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for sports odds.
-- **API Integration**: Utilizes [`the odds-api`](https://the-odds-api.com) to fetch daily updates for sports odds.
 
 ## Supported Sports and Leagues
 
