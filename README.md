@@ -26,6 +26,19 @@ Desktop aesthetic
 
 <img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/scores-view.png" alt="oddshub-on-desktop" width="880" />
 
+## Installation
+Make sure to have go (1.17+) installed, then do:
+
+```go install github.com/dos-2/oddshub@latest```
+
+The cointop executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already.
+
+Now you can run oddshub:
+
+```oddshub```
+
+windows reference: https://stackoverflow.com/questions/44272416/how-to-add-a-folder-to-path-environment-variable-in-windows-10-with-screensho
+macos reference: https://www.cyberciti.biz/faq/appleosx-bash-unix-change-set-path-environment-variable/
 ## Features
 
 - **Odds Display**: Displays moneyline, spreads, totals, and outrights for detailed betting insights.
