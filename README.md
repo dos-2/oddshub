@@ -31,7 +31,7 @@ Make sure to have [`go`](https://go.dev) (1.17+) installed, then do:
 
 ```go install github.com/dos-2/oddshub@latest```
 
-The cointop executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already.
+The oddshub executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already.
 
 Now you can run oddshub:
 
