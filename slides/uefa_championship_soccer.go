@@ -12,11 +12,11 @@ import (
 	"github.com/rivo/tview"
 )
 
-func UEFASoccerLeague(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func UEFAChampionshipSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total\n")
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))
 	}
-	return "UEFA", GetHeader(models.Soccer_uefa_europa_league), CreateH2HTable(string(models.Soccer_uefa_europa_league), tableData.String())
+	return "UEFA Euro", GetHeader(models.Soccer_uefa_european_champion), CreateH2HTable(string(models.Soccer_uefa_european_champion), tableData.String())
 }

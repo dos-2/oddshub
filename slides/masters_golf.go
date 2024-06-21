@@ -21,5 +21,5 @@ func MastersGolf(games []models.Event, nextSlide func()) (string, string, tview.
 		builder.WriteString(FormatTournamentEvent(games[0]))
 	}
 
-	return "Masters Tournament", GetHeader(models.Golf_masters_tournament_winner), CreateRoundRobinTable(string(models.Golf_masters_tournament_winner), builder.String())
+	return "Masters", GetHeader(models.Golf_masters_tournament_winner), CreateRoundRobinTable(string(models.Golf_masters_tournament_winner), builder.String())
 }

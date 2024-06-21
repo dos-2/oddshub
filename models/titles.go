@@ -29,6 +29,8 @@ const (
 	Tennis_atp_wimbledon           Title = "Mens Wimbledon"
 	Tennis_wta_french_open         Title = "Womens French Open"
 	Tennis_wta_wimbledon           Title = "Womens Wimbledon"
+	Soccer_uefa_european_champion  Title = "UEFA European Championship"
+	Soccer_conmebol_copa_america   Title = "Copa America"
 )
 
 func AllTitles() []Title {
