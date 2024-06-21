@@ -11,6 +11,7 @@
 >  A terminal UI for sports betting programmers.
 
 [![License](http://img.shields.io/badge/license-Apache-blue.svg)](https://raw.githubusercontent.com/dos-2/oddshub/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dos-2/oddshub)](https://goreportcard.com/report/github.com/dos-2/oddshub)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
 [`oddshub`](https://github.com/dos-2/oddshub) is a terminal UI is designed to swiftly and efficiently display sports betting odds, featuring a polished interface with aesthetic appeal.
