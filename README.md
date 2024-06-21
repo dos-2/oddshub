@@ -38,7 +38,9 @@ Now you can run oddshub:
 ```oddshub```
 
 windows reference: https://stackoverflow.com/questions/44272416/how-to-add-a-folder-to-path-environment-variable-in-windows-10-with-screensho
+
 macos reference: https://www.cyberciti.biz/faq/appleosx-bash-unix-change-set-path-environment-variable/
+
 ## Features
 
 - **Odds Display**: Displays moneyline, spreads, totals, and outrights for detailed betting insights.
