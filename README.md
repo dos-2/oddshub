@@ -29,13 +29,17 @@ Desktop aesthetic
 ## Installation
 Make sure to have [`go`](https://go.dev) (1.17+) installed, then do:
 
-```go install github.com/dos-2/oddshub@latest```
+```
+go install github.com/dos-2/oddshub@latest
+```
 
 The oddshub executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already.
 
 Now you can run oddshub:
 
-```oddshub```
+```
+oddshub
+```
 
 windows reference: https://stackoverflow.com/questions/44272416/how-to-add-a-folder-to-path-environment-variable-in-windows-10-with-screensho
 
