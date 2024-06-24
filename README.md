@@ -14,13 +14,13 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/dos-2/oddshub)](https://goreportcard.com/report/github.com/dos-2/oddshub)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-[`oddshub`](https://github.com/dos-2/oddshub) is a terminal UI is designed to swiftly and efficiently display sports betting odds, featuring a polished interface with aesthetic appeal.
+[`oddshub`](https://github.com/dos-2/oddshub) is a TUI designed to swiftly and efficiently display sports betting odds, featuring a polished interface with aesthetic appeal.
 
 This app is inspired by [`htop`](https://en.wikipedia.org/wiki/Htop) and [`cointop`](https://github.com/cointop-sh/cointop).
 
 <img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/oddshub.gif" alt="oddshub-in-action" width="880" />
 
-Desktop aesthetic
+*Desktop*
 
 <img src="https://raw.githubusercontent.com/dos-2/oddshub/main/assets/cover-view.png" alt="oddshub-on-desktop" width="880" />
 
