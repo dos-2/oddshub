@@ -33,7 +33,7 @@ Make sure to have [`go`](https://go.dev) (1.17+) installed, then do:
 go install github.com/dos-2/oddshub@latest
 ```
 
-The oddshub executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already.
+The oddshub executable will be under your GOPATH so make sure $GOPATH/bin is added to the $PATH variable if not already. (GOPATH will look something like /usr/go/bin)
 
 Now you can run oddshub:
 
