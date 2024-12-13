@@ -16,7 +16,7 @@ import (
 // Boxing creates a slide for boxing odds.
 func Boxing(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
 	var builder strings.Builder
-	builder.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread|Money|Total\n")
+	builder.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread|Money –|Total\n")
 
 	for _, game := range games {
 		builder.WriteString(FormatTeamEvent(game))

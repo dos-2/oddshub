@@ -15,7 +15,7 @@ import (
 // Mma creates a slide for MMA odds.
 func Mma(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread|Money|Total\n")
+	tableData.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread|Money –|Total\n")
 
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))

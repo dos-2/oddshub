@@ -48,6 +48,10 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 			align := tview.AlignCenter
 			selectable := true
 
+			if row%3 == 0 { // Make every third row unselectable
+				selectable = false
+			}
+
 			if row == 0 {
 				bgColor = tcell.NewRGBColor(57, 255, 20)
 				textColor = tcell.ColorBlack
@@ -58,9 +62,6 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 			if column == 0 && row == 0 {
 				bgColor = tcell.NewRGBColor(0, 255, 255)
 			}
-			if row%3 == 0 { // Make every third row unselectable
-				selectable = false
-			}
 
 			tableCell := tview.NewTableCell(cellText).
 				SetTextColor(textColor).
@@ -70,6 +71,30 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 				SetBackgroundColor(bgColor).
 				SetSelectedStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 					Background(tcell.NewRGBColor(0, 255, 255)))
+
+			if cellText == "Money –" {
+				tableCell.
+					SetClickedFunc(func() bool {
+						cellSelected := table.GetCell(row, column)
+						if cellSelected.Text == "Money –" {
+							cellSelected.
+								SetText("Money ▲").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(255, 0, 0)))
+						} else if cellSelected.Text == "Money ▲" {
+							cellSelected.
+								SetText("Money ▼").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(0, 255, 0)))
+						} else {
+							cellSelected.
+								SetText("Money –").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(0, 255, 255)))
+						}
+						return true
+					})
+			}
 
 			table.SetCell(row, column, tableCell)
 		}
