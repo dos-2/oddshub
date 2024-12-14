@@ -90,10 +90,60 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 							cellSelected.
 								SetText("Money –").
 								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(0, 255, 255)))
+									Background(tcell.NewRGBColor(255, 255, 0)))
 						}
 						return true
-					})
+					}).
+					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+						Background(tcell.NewRGBColor(255, 255, 0)))
+			} else if cellText == "Spread –" {
+				tableCell.
+					SetClickedFunc(func() bool {
+						cellSelected := table.GetCell(row, column)
+						if cellSelected.Text == "Spread –" {
+							cellSelected.
+								SetText("Spread ▲").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(255, 0, 0)))
+						} else if cellSelected.Text == "Spread ▲" {
+							cellSelected.
+								SetText("Spread ▼").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(0, 255, 0)))
+						} else {
+							cellSelected.
+								SetText("Spread –").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(255, 255, 0)))
+						}
+						return true
+					}).
+					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+						Background(tcell.NewRGBColor(255, 255, 0)))
+			} else if cellText == "Total –" {
+				tableCell.
+					SetClickedFunc(func() bool {
+						cellSelected := table.GetCell(row, column)
+						if cellSelected.Text == "Total –" {
+							cellSelected.
+								SetText("Total ▲").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(255, 0, 0)))
+						} else if cellSelected.Text == "Total ▲" {
+							cellSelected.
+								SetText("Total ▼").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(0, 255, 0)))
+						} else {
+							cellSelected.
+								SetText("Total –").
+								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+									Background(tcell.NewRGBColor(255, 255, 0)))
+						}
+						return true
+					}).
+					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
+						Background(tcell.NewRGBColor(255, 255, 0)))
 			}
 
 			table.SetCell(row, column, tableCell)

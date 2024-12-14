@@ -15,7 +15,7 @@ import (
 // NBABasketball creates a slide for basketball odds.
 func NBABasketball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money –|Total\n")
+	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
 
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))

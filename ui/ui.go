@@ -75,11 +75,13 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide - 1 + len(slides)) % len(slides)
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
+		models.SetCurrentPage(slides[slide].Name)
 	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
+		models.SetCurrentPage(slides[slide].Name)
 	}
 	return previousSlide, nextSlide
 }

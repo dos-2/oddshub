@@ -185,6 +185,20 @@ func sortEvents(events []models.Event, field string, orderBy string) []models.Ev
 			case "desc":
 				comparison = math.Abs((teamOddsI.HomeOdds.Moneyline.Price - teamOddsI.AwayOdds.Moneyline.Price)) > math.Abs((teamOddsJ.HomeOdds.Moneyline.Price - teamOddsJ.AwayOdds.Moneyline.Price))
 			}
+		case "spread":
+			switch orderBy {
+			case "asc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Spread.Price - teamOddsI.AwayOdds.Spread.Price)) < math.Abs((teamOddsJ.HomeOdds.Spread.Price - teamOddsJ.AwayOdds.Spread.Price))
+			case "desc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Spread.Price - teamOddsI.AwayOdds.Spread.Price)) > math.Abs((teamOddsJ.HomeOdds.Spread.Price - teamOddsJ.AwayOdds.Spread.Price))
+			}
+		case "total":
+			switch orderBy {
+			case "asc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Totals.OverPrice - teamOddsI.AwayOdds.Totals.UnderPrice)) < math.Abs((teamOddsJ.HomeOdds.Totals.OverPrice - teamOddsJ.AwayOdds.Totals.UnderPrice))
+			case "desc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Totals.OverPrice - teamOddsI.AwayOdds.Totals.UnderPrice)) > math.Abs((teamOddsJ.HomeOdds.Totals.OverPrice - teamOddsJ.AwayOdds.Totals.UnderPrice))
+			}
 		}
 		return comparison
 	})
