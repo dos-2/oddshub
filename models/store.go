@@ -25,3 +25,13 @@ func SetCurrentPage(page string) {
 func GetCurrentPage() string {
 	return currentPage
 }
+
+var debug = false
+
+func SetDebug(option bool) {
+	debug = option
+}
+
+func GetDebug() bool {
+	return debug
+}

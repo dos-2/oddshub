@@ -12,7 +12,7 @@ import (
 	"github.com/rivo/tview"
 )
 
-func CopaAmericaSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func CopaAmericaSoccer(games []models.Event) (string, string, tview.Primitive) {
 	var builder strings.Builder
 	builder.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
 

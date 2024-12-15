@@ -13,7 +13,7 @@ import (
 )
 
 // WomensFrenchOpenTennis creates a slide for tennis odds.
-func WomensFrenchOpenTennis(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func WomensFrenchOpenTennis(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Location|Players|Bookmaker|Spread –|Money –|Total –\n")
 	for _, game := range games {

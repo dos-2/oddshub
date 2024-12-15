@@ -13,7 +13,7 @@ import (
 )
 
 // NcaaBasketball creates a slide for basketball odds.
-func NCAABasketball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func NCAABasketball(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
 

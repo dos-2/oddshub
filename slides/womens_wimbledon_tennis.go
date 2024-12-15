@@ -12,7 +12,7 @@ import (
 	"github.com/rivo/tview"
 )
 
-func WomensWimbledonTennis(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func WomensWimbledonTennis(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
 	for _, game := range games {

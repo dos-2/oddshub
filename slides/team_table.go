@@ -5,8 +5,10 @@
 package slides
 
 import (
+	"fmt"
 	"strings"
 
+	"github.com/dos-2/oddshub/models"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -76,6 +78,8 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 				tableCell.
 					SetClickedFunc(func() bool {
 						cellSelected := table.GetCell(row, column)
+						fmt.Println(models.GetCurrentPage())
+						fmt.Println(models.GetLoadedEvents("soccer_spain_la_liga"))
 						if cellSelected.Text == "Money –" {
 							cellSelected.
 								SetText("Money ▲").

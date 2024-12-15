@@ -33,7 +33,7 @@ const (
 )
 
 // Cover returns the cover page.
-func Cover(games []models.Event, nextSlide func()) (title string, header string, content tview.Primitive) {
+func Cover(games []models.Event) (title string, header string, content tview.Primitive) {
 	// What's the size of the logo?
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
@@ -44,10 +44,7 @@ func Cover(games []models.Event, nextSlide func()) (title string, header string,
 		}
 	}
 	logoBox := tview.NewTextView().
-		SetTextColor(tcell.NewRGBColor(57, 255, 20)).
-		SetDoneFunc(func(key tcell.Key) {
-			nextSlide()
-		})
+		SetTextColor(tcell.NewRGBColor(57, 255, 20))
 	fmt.Fprint(logoBox, logo)
 
 	// Create a frame for the subtitle and navigation infos.

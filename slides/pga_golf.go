@@ -12,7 +12,7 @@ import (
 	"github.com/rivo/tview"
 )
 
-func PGAGolf(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func PGAGolf(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Teams|Players|Bookmaker|Outrights||\n")
 	if len(games) > 0 {

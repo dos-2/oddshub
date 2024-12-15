@@ -13,7 +13,7 @@ import (
 )
 
 // MastersGolf creates a slide for golf odds.
-func MastersGolf(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func MastersGolf(games []models.Event) (string, string, tview.Primitive) {
 	var builder strings.Builder
 	builder.WriteString("Commencement Date|Teams|Players|Bookmaker|Outrights||\n")
 

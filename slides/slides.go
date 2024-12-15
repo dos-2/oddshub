@@ -14,7 +14,7 @@ import (
 // Slide is a struct representing a slide in the presentation.
 type Slide struct {
 	Name    string // Name of the slide
-	Content func(games []models.Event, nextSlide func()) (title string, header string, content tview.Primitive)
+	Content func(games []models.Event) (title string, header string, content tview.Primitive)
 }
 
 // GetSlides returns a slice of slides for the presentation.

@@ -13,7 +13,7 @@ import (
 )
 
 // FootballSlide creates a slide for football odds.
-func NFLfootball(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func NFLfootball(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
 	for _, game := range games {

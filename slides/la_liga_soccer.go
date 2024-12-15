@@ -8,15 +8,16 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
 // LaLigaSoccer creates a slide for La Liga soccer odds.
-func LaLigaSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func LaLigaSoccer(games []models.Event) (string, string, tview.Primitive) {
 	var builder strings.Builder
 	builder.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
-	models.AddLoadedEvent("La Liga", games)
+	models.AddLoadedEvent(string(sports.Soccer_spain_la_liga), games)
 
 	for _, game := range games {
 		builder.WriteString(FormatTeamEvent(game))

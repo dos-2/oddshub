@@ -13,7 +13,7 @@ import (
 )
 
 // Mma creates a slide for MMA odds.
-func Mma(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func Mma(games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
 	tableData.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread –|Money –|Total –\n")
 
