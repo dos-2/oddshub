@@ -8,17 +8,20 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
-func CopaAmericaSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func CopaAmericaSoccer(pages *tview.Pages, games []models.Event) (string, string, tview.Primitive) {
 	var builder strings.Builder
-	builder.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total\n")
+	headerString := "Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n"
+
+	models.LoadEvent(string(sports.Soccer_conmebol_copa_america), games)
 
 	for _, game := range games {
 		builder.WriteString(FormatTeamEvent(game))
 	}
 
-	return "Copa America", GetHeader(models.Soccer_conmebol_copa_america), CreateH2HTable(string(models.Soccer_conmebol_copa_america), builder.String())
+	return "Copa America", GetHeader(models.Soccer_conmebol_copa_america), CreateH2HTable(pages, string(models.Soccer_conmebol_copa_america), headerString, games)
 }

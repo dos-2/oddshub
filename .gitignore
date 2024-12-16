@@ -24,3 +24,6 @@ go.work
 .env
 
 *.DS_Store
+
+#logs
+output.txt
