@@ -8,18 +8,21 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
 // Mma creates a slide for MMA odds.
-func Mma(games []models.Event) (string, string, tview.Primitive) {
+func Mma(pages *tview.Pages, games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Ranking|Players|Bookmaker|Spread –|Money –|Total –\n")
+	headerString := "Commencement Date|Ranking|Players|Bookmaker|Spread –|Money –|Total –\n"
+
+	models.LoadEvent(string(sports.Mma_mixed_martial_arts), games)
 
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))
 	}
 
-	return "MMA", GetHeader(models.Mma_mixed_martial_arts), CreateH2HTable("MMA", tableData.String())
+	return "MMA", GetHeader(models.Mma_mixed_martial_arts), CreateH2HTable(pages, "MMA", headerString, games)
 }

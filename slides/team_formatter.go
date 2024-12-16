@@ -173,9 +173,11 @@ func getColors(sport string, homeTeam string, awayTeam string) (models.TeamColor
 }
 
 func sortEvents(events []models.Event, field string, orderBy string) []models.Event {
-	sort.Slice(events, func(i, j int) bool {
-		teamOddsI := ExtractTeamOdds(events[i])
-		teamOddsJ := ExtractTeamOdds(events[j])
+	eventsCopy := make([]models.Event, len(events))
+	copy(eventsCopy, events)
+	sort.Slice(eventsCopy, func(i, j int) bool {
+		teamOddsI := ExtractTeamOdds(eventsCopy[i])
+		teamOddsJ := ExtractTeamOdds(eventsCopy[j])
 		comparison := false
 		switch field {
 		case "money":
@@ -202,5 +204,5 @@ func sortEvents(events []models.Event, field string, orderBy string) []models.Ev
 		}
 		return comparison
 	})
-	return events
+	return eventsCopy
 }

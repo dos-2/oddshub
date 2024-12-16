@@ -77,6 +77,7 @@ func createInfoTextView(pages *tview.Pages, slides []slides.Slide) *tview.TextVi
 			}
 
 			models.SetCurrentPage(pageName)
+			models.SetCurrentPageIndex(added[0])
 			pages.SwitchToPage(added[0])
 		})
 	return info
@@ -96,6 +97,7 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
 		models.SetCurrentPage(slides[slide].Name)
+		models.SetCurrentPageIndex(string(slide))
 	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
@@ -110,6 +112,7 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
 		models.SetCurrentPage(slides[slide].Name)
+		models.SetCurrentPageIndex(string(slide))
 	}
 	return previousSlide, nextSlide
 }
@@ -122,7 +125,7 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 			eventList = []models.Event{}
 		}
 
-		title, _, primitive := slide.Content(eventList)
+		title, _, primitive := slide.Content(pages, eventList)
 		var content tview.Primitive
 		content = tview.NewFlex().
 			SetDirection(tview.FlexRow).
@@ -136,8 +139,8 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 		if models.GetDebug() {
 			fmt.Printf(`[%s] %d: %s - %s`, time.Now().String(), index, title, slide.Name)
 			fmt.Println()
-			fmt.Fprintf(info, `["%d"][#00FFFF]%s[white][""]  `, index, title)
 		}
+		fmt.Fprintf(info, `["%d"][#00FFFF]%s[white][""]  `, index, title)
 	}
 	fmt.Println("End Setup")
 	fmt.Println()

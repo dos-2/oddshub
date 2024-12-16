@@ -7,6 +7,7 @@ package slides
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/dos-2/oddshub/models"
 	"github.com/gdamore/tcell/v2"
@@ -34,7 +35,94 @@ func parseColorTag(text string) (string, tcell.Color, tcell.Color) {
 	return text, textColor, bgColor
 }
 
-func CreateH2HTable(sportName string, tableData string) *tview.Table {
+func GetBackground(cellText string) tcell.Color {
+	if strings.Contains(cellText, "▲") {
+		return tcell.NewRGBColor(255, 0, 0)
+	} else if strings.Contains(cellText, "▼") {
+		return tcell.NewRGBColor(0, 255, 0)
+	} else if strings.Contains(cellText, "–") {
+		return tcell.NewRGBColor(255, 255, 0)
+	}
+	return tcell.NewRGBColor(255, 255, 255)
+}
+
+func GetClickFunction(pages *tview.Pages, table *tview.Table, row int, column int, cellText string, cellField string, tableHeader string) func() bool {
+	return func() bool {
+		debug := models.GetDebug()
+		cellSelected := table.GetCell(row, column)
+		currentPage := models.GetCurrentPage()
+		sortedEvents := models.GetLoadedEvents(currentPage)
+		newTableHeader := ""
+
+		switch cellText {
+		case "Money":
+			if strings.Contains(tableHeader, "Money –") {
+				newTableHeader = strings.Replace(tableHeader, "Money –", "Money ▲", 1)
+			} else if strings.Contains(tableHeader, "Money ▲") {
+				newTableHeader = strings.Replace(tableHeader, "Money ▲", "Money ▼", 1)
+			} else if strings.Contains(tableHeader, "Money ▼") {
+				newTableHeader = strings.Replace(tableHeader, "Money ▼", "Money –", 1)
+			}
+		case "Spread":
+			if strings.Contains(tableHeader, "Spread –") {
+				newTableHeader = strings.Replace(tableHeader, "Spread –", "Spread ▲", 1)
+			} else if strings.Contains(tableHeader, "Spread ▲") {
+				newTableHeader = strings.Replace(tableHeader, "Spread ▲", "Spread ▼", 1)
+			} else if strings.Contains(tableHeader, "Spread ▼") {
+				newTableHeader = strings.Replace(tableHeader, "Spread ▼", "Spread –", 1)
+			}
+		case "Total":
+			if strings.Contains(tableHeader, "Total –") {
+				newTableHeader = strings.Replace(tableHeader, "Total –", "Total ▲", 1)
+			} else if strings.Contains(tableHeader, "Total ▲") {
+				newTableHeader = strings.Replace(tableHeader, "Total ▲", "Total ▼", 1)
+			} else if strings.Contains(tableHeader, "Total ▼") {
+				newTableHeader = strings.Replace(tableHeader, "Total ▼", "Total –", 1)
+			}
+		}
+
+		if cellSelected.Text == cellText+" –" {
+			if debug {
+				fmt.Printf("[%s] Sort %s by asc", time.Now(), cellText)
+				fmt.Println()
+				fmt.Printf("[%s] Length of events loaded to be sorted: %d", time.Now(), len(sortedEvents))
+				fmt.Println()
+			}
+			sortedEvents = sortEvents(sortedEvents, cellField, "asc")
+		} else if cellSelected.Text == cellText+" ▲" {
+			if debug {
+				fmt.Printf("[%s] Sort %s by desc", time.Now(), cellText)
+				fmt.Println()
+				fmt.Printf("[%s] Length of events loaded to be sorted: %d", time.Now(), len(sortedEvents))
+				fmt.Println()
+			}
+			sortedEvents = sortEvents(sortedEvents, cellField, "desc")
+		} else {
+			if debug {
+				fmt.Printf("[%s] Sort %s by none", time.Now(), cellText)
+				fmt.Println()
+				fmt.Printf("[%s] Length of events loaded to be sorted: %d", time.Now(), len(sortedEvents))
+				fmt.Println()
+			}
+		}
+		table := CreateH2HTable(pages, currentPage, newTableHeader, sortedEvents)
+		content := tview.NewFlex().
+			SetDirection(tview.FlexRow).
+			AddItem(table, 0, 1, true)
+		pages.AddAndSwitchToPage(models.GetCurrentPageIndex(), content, true)
+		return true
+	}
+}
+
+func CreateH2HTable(pages *tview.Pages, sportName string, tableHeader string, games []models.Event) *tview.Table {
+	var builder strings.Builder
+	builder.WriteString(tableHeader)
+	for _, game := range games {
+		builder.WriteString(FormatTeamEvent(game))
+	}
+
+	tableData := builder.String()
+
 	// Set up event listeners for mouse events
 	table := tview.NewTable().
 		SetFixed(1, 1).
@@ -74,80 +162,21 @@ func CreateH2HTable(sportName string, tableData string) *tview.Table {
 				SetSelectedStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 					Background(tcell.NewRGBColor(0, 255, 255)))
 
-			if cellText == "Money –" {
+			if strings.Contains(cellText, "Money") {
 				tableCell.
-					SetClickedFunc(func() bool {
-						cellSelected := table.GetCell(row, column)
-						fmt.Println(models.GetCurrentPage())
-						fmt.Println(models.GetLoadedEvents("soccer_spain_la_liga"))
-						if cellSelected.Text == "Money –" {
-							cellSelected.
-								SetText("Money ▲").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 0, 0)))
-						} else if cellSelected.Text == "Money ▲" {
-							cellSelected.
-								SetText("Money ▼").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(0, 255, 0)))
-						} else {
-							cellSelected.
-								SetText("Money –").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 255, 0)))
-						}
-						return true
-					}).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Money", "money", tableHeader)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-						Background(tcell.NewRGBColor(255, 255, 0)))
-			} else if cellText == "Spread –" {
+						Background(GetBackground(cellText)))
+			} else if strings.Contains(cellText, "Spread") {
 				tableCell.
-					SetClickedFunc(func() bool {
-						cellSelected := table.GetCell(row, column)
-						if cellSelected.Text == "Spread –" {
-							cellSelected.
-								SetText("Spread ▲").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 0, 0)))
-						} else if cellSelected.Text == "Spread ▲" {
-							cellSelected.
-								SetText("Spread ▼").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(0, 255, 0)))
-						} else {
-							cellSelected.
-								SetText("Spread –").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 255, 0)))
-						}
-						return true
-					}).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Spread", "spread", tableHeader)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-						Background(tcell.NewRGBColor(255, 255, 0)))
-			} else if cellText == "Total –" {
+						Background((GetBackground(cellText))))
+			} else if strings.Contains(cellText, "Total") {
 				tableCell.
-					SetClickedFunc(func() bool {
-						cellSelected := table.GetCell(row, column)
-						if cellSelected.Text == "Total –" {
-							cellSelected.
-								SetText("Total ▲").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 0, 0)))
-						} else if cellSelected.Text == "Total ▲" {
-							cellSelected.
-								SetText("Total ▼").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(0, 255, 0)))
-						} else {
-							cellSelected.
-								SetText("Total –").
-								SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-									Background(tcell.NewRGBColor(255, 255, 0)))
-						}
-						return true
-					}).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Total", "total", tableHeader)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
-						Background(tcell.NewRGBColor(255, 255, 0)))
+						Background((GetBackground(cellText))))
 			}
 
 			table.SetCell(row, column, tableCell)

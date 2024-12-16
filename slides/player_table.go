@@ -7,11 +7,18 @@ package slides
 import (
 	"strings"
 
+	"github.com/dos-2/oddshub/models"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
 
-func CreateRoundRobinTable(sportName string, tableData string) *tview.Table {
+func CreateRoundRobinTable(sportName string, tableData string, games []models.Event) *tview.Table {
+	var builder strings.Builder
+
+	if len(games) > 0 {
+		builder.WriteString(FormatTournamentEvent(games[0]))
+	}
+
 	// Set up event listeners for mouse events
 	table := tview.NewTable().
 		SetFixed(1, 1).

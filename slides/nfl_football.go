@@ -8,16 +8,20 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
 // FootballSlide creates a slide for football odds.
-func NFLfootball(games []models.Event) (string, string, tview.Primitive) {
+func NFLfootball(pages *tview.Pages, games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
+	headerString := "Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n"
+
+	models.LoadEvent(string(sports.Americanfootball_nfl), games)
+
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))
 	}
-	return "NFL", GetHeader(models.Americanfootball_nfl), CreateH2HTable("NFL Football", tableData.String())
+	return "NFL", GetHeader(models.Americanfootball_nfl), CreateH2HTable(pages, "NFL Football", headerString, games)
 }

@@ -8,15 +8,19 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
-func NCAAFootball(games []models.Event) (string, string, tview.Primitive) {
+func NCAAFootball(pages *tview.Pages, games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n")
+	headerString := "Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n"
+
+	models.LoadEvent(string(sports.Americanfootball_ncaaf), games)
+
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))
 	}
-	return "NCAA Football", GetHeader(models.Americanfootball_ncaaf), CreateH2HTable("NCAA Football", tableData.String())
+	return "NCAA Football", GetHeader(models.Americanfootball_ncaaf), CreateH2HTable(pages, "NCAA Football", headerString, games)
 }

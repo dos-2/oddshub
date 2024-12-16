@@ -14,7 +14,7 @@ import (
 // Slide is a struct representing a slide in the presentation.
 type Slide struct {
 	Name    string // Name of the slide
-	Content func(games []models.Event) (title string, header string, content tview.Primitive)
+	Content func(pages *tview.Pages, games []models.Event) (title string, header string, content tview.Primitive)
 }
 
 // GetSlides returns a slice of slides for the presentation.
@@ -68,4 +68,14 @@ func GetAllSlidesMap() map[string]Slide {
 		slidesMap[slide.Name] = slide
 	}
 	return slidesMap
+}
+
+func GetSlide(name string) Slide {
+	slides := GetSlides()
+	for _, slide := range slides {
+		if slide.Name == name {
+			return slide
+		}
+	}
+	return slides[0]
 }

@@ -33,7 +33,7 @@ const (
 )
 
 // Cover returns the cover page.
-func Cover(games []models.Event) (title string, header string, content tview.Primitive) {
+func Cover(pages *tview.Pages, games []models.Event) (title string, header string, content tview.Primitive) {
 	// What's the size of the logo?
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
