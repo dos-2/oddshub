@@ -12,8 +12,10 @@ import (
 	"github.com/rivo/tview"
 )
 
-func CreateRoundRobinTable(sportName string, tableData string, games []models.Event) *tview.Table {
+func CreateRoundRobinTable(sportName string, tableHeader string, games []models.Event) *tview.Table {
 	var builder strings.Builder
+
+	builder.WriteString(tableHeader)
 
 	if len(games) > 0 {
 		builder.WriteString(FormatTournamentEvent(games[0]))
@@ -26,6 +28,8 @@ func CreateRoundRobinTable(sportName string, tableData string, games []models.Ev
 		SetSelectable(true, false)
 
 		// Set up the table cells
+
+	tableData := builder.String()
 
 	rows := strings.Split(tableData, "\n")
 	for row := 0; row < len(rows)-1; row++ {
