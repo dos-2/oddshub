@@ -46,7 +46,14 @@ func GetBackground(cellText string) tcell.Color {
 	return tcell.NewRGBColor(255, 255, 255)
 }
 
-func GetClickFunction(pages *tview.Pages, table *tview.Table, row int, column int, cellText string, cellField string, tableHeader string) func() bool {
+func GetClickFunction(pages *tview.Pages,
+	table *tview.Table,
+	row int,
+	column int,
+	cellText string,
+	cellField string,
+	tableHeader string,
+	sportName string) func() bool {
 	return func() bool {
 		debug := models.GetDebug()
 		cellSelected := table.GetCell(row, column)
@@ -105,7 +112,7 @@ func GetClickFunction(pages *tview.Pages, table *tview.Table, row int, column in
 				fmt.Println()
 			}
 		}
-		table := CreateH2HTable(pages, currentPage, newTableHeader, sortedEvents)
+		table := CreateH2HTable(pages, sportName, newTableHeader, sortedEvents)
 		content := tview.NewFlex().
 			SetDirection(tview.FlexRow).
 			AddItem(table, 0, 1, true)
@@ -164,17 +171,17 @@ func CreateH2HTable(pages *tview.Pages, sportName string, tableHeader string, ga
 
 			if strings.Contains(cellText, "Money") {
 				tableCell.
-					SetClickedFunc(GetClickFunction(pages, table, row, column, "Money", "money", tableHeader)).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Money", "money", tableHeader, sportName)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 						Background(GetBackground(cellText)))
 			} else if strings.Contains(cellText, "Spread") {
 				tableCell.
-					SetClickedFunc(GetClickFunction(pages, table, row, column, "Spread", "spread", tableHeader)).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Spread", "spread", tableHeader, sportName)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 						Background((GetBackground(cellText))))
 			} else if strings.Contains(cellText, "Total") {
 				tableCell.
-					SetClickedFunc(GetClickFunction(pages, table, row, column, "Total", "total", tableHeader)).
+					SetClickedFunc(GetClickFunction(pages, table, row, column, "Total", "total", tableHeader, sportName)).
 					SetStyle(tcell.StyleDefault.Foreground(tcell.ColorBlack).
 						Background((GetBackground(cellText))))
 			}
