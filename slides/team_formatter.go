@@ -6,6 +6,8 @@ package slides
 
 import (
 	"fmt"
+	"math"
+	"sort"
 	"strings"
 	"time"
 
@@ -168,4 +170,39 @@ func getColors(sport string, homeTeam string, awayTeam string) (models.TeamColor
 		awayColors.SecondaryColor = "#FFFFFF"
 	}
 	return homeColors, awayColors
+}
+
+func sortEvents(events []models.Event, field string, orderBy string) []models.Event {
+	eventsCopy := make([]models.Event, len(events))
+	copy(eventsCopy, events)
+	sort.Slice(eventsCopy, func(i, j int) bool {
+		teamOddsI := ExtractTeamOdds(eventsCopy[i])
+		teamOddsJ := ExtractTeamOdds(eventsCopy[j])
+		comparison := false
+		switch field {
+		case "money":
+			switch orderBy {
+			case "asc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Moneyline.Price - teamOddsI.AwayOdds.Moneyline.Price)) < math.Abs((teamOddsJ.HomeOdds.Moneyline.Price - teamOddsJ.AwayOdds.Moneyline.Price))
+			case "desc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Moneyline.Price - teamOddsI.AwayOdds.Moneyline.Price)) > math.Abs((teamOddsJ.HomeOdds.Moneyline.Price - teamOddsJ.AwayOdds.Moneyline.Price))
+			}
+		case "spread":
+			switch orderBy {
+			case "asc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Spread.Price - teamOddsI.AwayOdds.Spread.Price)) < math.Abs((teamOddsJ.HomeOdds.Spread.Price - teamOddsJ.AwayOdds.Spread.Price))
+			case "desc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Spread.Price - teamOddsI.AwayOdds.Spread.Price)) > math.Abs((teamOddsJ.HomeOdds.Spread.Price - teamOddsJ.AwayOdds.Spread.Price))
+			}
+		case "total":
+			switch orderBy {
+			case "asc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Totals.OverPrice - teamOddsI.AwayOdds.Totals.UnderPrice)) < math.Abs((teamOddsJ.HomeOdds.Totals.OverPrice - teamOddsJ.AwayOdds.Totals.UnderPrice))
+			case "desc":
+				comparison = math.Abs((teamOddsI.HomeOdds.Totals.OverPrice - teamOddsI.AwayOdds.Totals.UnderPrice)) > math.Abs((teamOddsJ.HomeOdds.Totals.OverPrice - teamOddsJ.AwayOdds.Totals.UnderPrice))
+			}
+		}
+		return comparison
+	})
+	return eventsCopy
 }

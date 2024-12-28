@@ -41,11 +41,11 @@ func RunApp() error {
 
 	pages := tview.NewPages()
 	// Info text view
-	info := createInfoTextView(pages)
+	info := createInfoTextView(pages, presentationSlides)
 	// Create navigation functions
 	previousSlide, nextSlide := createNavigationFunctions(info, presentationSlides)
 	// Create pages for all slides
-	setupSlides(events, pages, info, presentationSlides, nextSlide)
+	setupSlides(events, pages, info, presentationSlides)
 	// Create the main layout.
 	layout := tview.NewFlex().
 		SetDirection(tview.FlexRow).
@@ -56,7 +56,7 @@ func RunApp() error {
 	return app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run()
 }
 
-func createInfoTextView(pages *tview.Pages) *tview.TextView {
+func createInfoTextView(pages *tview.Pages, slides []slides.Slide) *tview.TextView {
 	info := tview.NewTextView().
 		SetDynamicColors(true).
 		SetRegions(true).
@@ -65,6 +65,19 @@ func createInfoTextView(pages *tview.Pages) *tview.TextView {
 			if len(added) == 0 {
 				return
 			}
+
+			pageIndex, _ := strconv.Atoi(added[0])
+			pageName := slides[pageIndex].Name
+
+			// Log
+			if models.GetDebug() {
+				fmt.Println("Jump To Slide")
+				fmt.Printf(`[%s] %s/%d: %s`, time.Now(), added[0], pages.GetPageCount()-1, pageName)
+				fmt.Println()
+			}
+
+			models.SetCurrentPage(pageName)
+			models.SetCurrentPageIndex(added[0])
 			pages.SwitchToPage(added[0])
 		})
 	return info
@@ -74,24 +87,45 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 	previousSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide - 1 + len(slides)) % len(slides)
+
+		// Log
+		if models.GetDebug() {
+			fmt.Println("Previous Slide")
+			fmt.Printf(`[%s] %d/%d: %s`, time.Now(), slide, len(slides), slides[slide].Name)
+			fmt.Println()
+		}
+
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
+		models.SetCurrentPage(slides[slide].Name)
+		models.SetCurrentPageIndex(string(slide))
 	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
+
+		// Log
+		if models.GetDebug() {
+			fmt.Println("Next Slide")
+			fmt.Printf(`[%s] %d/%d: %s`, time.Now(), slide, len(slides), slides[slide].Name)
+			fmt.Println()
+		}
+
 		info.Highlight(strconv.Itoa(slide)).ScrollToHighlight()
+		models.SetCurrentPage(slides[slide].Name)
+		models.SetCurrentPageIndex(string(slide))
 	}
 	return previousSlide, nextSlide
 }
 
-func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tview.TextView, slides []slides.Slide, nextSlide func()) {
+func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tview.TextView, slides []slides.Slide) {
+	fmt.Println("Setup Slides")
 	for index, slide := range slides {
 		eventList, exists := events[slide.Name]
 		if !exists || index == 0 {
 			eventList = []models.Event{}
 		}
 
-		title, _, primitive := slide.Content(eventList, nextSlide)
+		title, _, primitive := slide.Content(pages, eventList)
 		var content tview.Primitive
 		content = tview.NewFlex().
 			SetDirection(tview.FlexRow).
@@ -100,8 +134,16 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 			content = primitive
 		}
 		pages.AddPage(strconv.Itoa(index), content, true, index == 0)
+
+		// Log
+		if models.GetDebug() {
+			fmt.Printf(`[%s] %d: %s - %s`, time.Now().String(), index, title, slide.Name)
+			fmt.Println()
+		}
 		fmt.Fprintf(info, `["%d"][#00FFFF]%s[white][""]  `, index, title)
 	}
+	fmt.Println("End Setup")
+	fmt.Println()
 	info.Highlight("0")
 }
 

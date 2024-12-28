@@ -8,18 +8,21 @@ import (
 	"strings"
 
 	"github.com/dos-2/oddshub/models"
+	"github.com/dos-2/oddshub/sports"
 
 	"github.com/rivo/tview"
 )
 
 // MLSSoccer creates a slide for soccer odds.
-func MLSSoccer(games []models.Event, nextSlide func()) (string, string, tview.Primitive) {
+func MLSSoccer(pages *tview.Pages, games []models.Event) (string, string, tview.Primitive) {
 	var tableData strings.Builder
-	tableData.WriteString("Commencement Date|Location|Teams|Bookmaker|Spread|Money|Total\n")
+	headerString := "Commencement Date|Location|Teams|Bookmaker|Spread –|Money –|Total –\n"
+
+	models.LoadEvent(string(sports.Soccer_usa_mls), games)
 
 	for _, game := range games {
 		tableData.WriteString(FormatTeamEvent(game))
 	}
 
-	return "MLS", GetHeader(models.Soccer_usa_mls), CreateH2HTable("MLS Soccer", tableData.String())
+	return "MLS", GetHeader(models.Soccer_usa_mls), CreateH2HTable(pages, "MLS Soccer", headerString, games)
 }
