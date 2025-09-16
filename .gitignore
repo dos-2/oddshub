@@ -27,3 +27,5 @@ go.work
 
 #logs
 output.txt
+
+.idea
