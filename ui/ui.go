@@ -118,7 +118,6 @@ func createNavigationFunctions(info *tview.TextView, slides []slides.Slide) (fun
 }
 
 func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tview.TextView, slides []slides.Slide) {
-	fmt.Println("Setup Slides")
 	for index, slide := range slides {
 		eventList, exists := events[slide.Name]
 		if !exists || index == 0 {
@@ -142,8 +141,6 @@ func setupSlides(events map[string][]models.Event, pages *tview.Pages, info *tvi
 		}
 		fmt.Fprintf(info, `["%d"][#00FFFF]%s[white][""]  `, index, title)
 	}
-	fmt.Println("End Setup")
-	fmt.Println()
 	info.Highlight("0")
 }
 
